@@ -1,30 +1,25 @@
 ﻿@page
-    <div class="container">
-        <div class="row">&nbsp;</div>
-        <div class="row">
-            <div class="col-2">User</div>
-            <div class="col-4"><input type="text" id="userInput" /></div>
+    <!DOCTYPE html>
+
+    <head>
+        <title>Boggle</title>
+        <link rel="stylesheet" type="text/css" href="~/css/bogger.css">
+        <script type="text/javascript" defer src="~/js/bogger.js"></script>
+    </head>
+
+    <body>
+
+        <div id="timer">
+            <span id="secs">00:00</span>
+            <input type="button" id="startButton" value="start game">
         </div>
-        <div class="row">
-            <div class="col-2">Message</div>
-            <div class="col-4"><input type="text" id="messageInput" /></div>
+        <div id="container">
         </div>
-        <div class="row">&nbsp;</div>
-        <div class="row">
-            <div class="col-6">
-                <input type="button" id="sendButton" value="Send Message" />
-            </div>
+
+        <div id="button">
+            <input type="submit" id="submit" onclick="tryit()">
         </div>
-    </div>
-    <div class="row">
-        <div class="col-12">
-            <hr />
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-6">
-            <ul id="messagesList"></ul>
-        </div>
-    </div>
-<script src="~/js/signalr/dist/browser/signalr.js"></script>
-<script src="~/js/chat.js"></script>
+
+        <p id="print"></p>
+
+    </body>
