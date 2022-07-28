@@ -164,10 +164,31 @@ public class IndexModel : PageModel
     //}
 
     // Create function (call function)
-    // Loop through the four words (for each)
-    // Pass each one into wordRemix
-    // Add the arrayRemix it returns to a bigger array
-    // Return the array
+    public List<char> wordsRemix
+    {
+        get
+        {
+            List<char> returnList = new List<char>();
+
+            List<string> word = CreateWords;
+
+            // Loop through the four words (for each)
+            foreach(string a in word)
+            { 
+                // Pass each one into wordRemix
+                char[] charlist = wordRemix(word);
+
+                foreach(char letter in charlist)
+                {                   
+                    // Add the arrayRemix it returns to a bigger array
+                    returnList.Add(arrayRemix);
+                }
+            }
+
+            // Return the array
+            return returnList;
+        }   
+    }
 
 
 
