@@ -146,6 +146,30 @@ public class IndexModel : PageModel
             return words;
         }
     }
+    
+    public char[] wordRemix(string word)
+    {
+        char[] arrayRemix = word.ToCharArray();
+        Random ran = new Random();
+        int a = array.Length;
+        while(a > 1)
+        {
+            a--;
+            int b = ran.Next(a+1);
+            var temp = arrayRemix[b];
+            arrayRemix[b] = arrayRemix[a];
+            arrayRemix[a] = temp;
+        }
+        return arrayRemix;
+    }
+
+    // Create function (call function)
+    // Loop through the four words (for each)
+    // Pass each one into wordRemix
+    // Add the arrayRemix it returns to a bigger array
+    // Return the array
+
+
 
     /// <summary>
     /// We also need to figure out how to do SignalR and time the match and end it at a certain time
