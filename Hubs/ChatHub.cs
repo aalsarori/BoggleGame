@@ -15,9 +15,9 @@ namespace AbdulsGame.Hubs
         {
             // Insert player name into player table, set score = 0.
 
-            // Update count of session table to += 1 where gamecode = gamecode.
+            // Insert player name into the session table
 
-            // Check if count of game session >= 2.
+            // Check if count where gamecode = gamecode of game session >= 2.
 
             // If it is 1, return await Clients.All.SendAsync("Wait", user, message);
                 // Make it so that it just says Waiting for another player... 1/2
