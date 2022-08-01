@@ -13,11 +13,11 @@ namespace AbdulsGame.Hubs
         // Get the game to start
         public async Task WaitToStart(string user, string gamecode)
         {
-            // Add the username to the player / score list, with a score of 0.
+            // Insert player name into player table, set score = 0.
 
-            // Add a count to the game session.
+            // Update count of session table to += 1 where gamecode = gamecode.
 
-            // Check the count of the game session.
+            // Check if count of game session >= 2.
 
             // If it is 1, return await Clients.All.SendAsync("Wait", user, message);
                 // Make it so that it just says Waiting for another player... 1/2
