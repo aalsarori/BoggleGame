@@ -64,8 +64,24 @@ namespace AbdulsGame.Hubs
                     arr.Add('b');
                 }
 
+                
 
                 // Pass in initial names ands scores by drawing from database and passing them in
+                string getinitialnamesandscores = "SELECT usernameOne, usernameTwo, userOneScore, userTwoScore FROM games WHERE game_code = 1";
+
+                // Run the query
+
+                // Set them equal to the variables
+                string user1 = "usernameOne";
+                string user2 = "usernameTwo";
+                string score1 = "userOneScore";
+                string score2 = "userTwoScore";
+
+                // Pass it in
+                await Clients.All.SendAsync("SendInitialScores", user1, score1, user2, score2);
+
+                // Pass the array
+                await Clients.All.SendAsync("GameBoard", arr);
 
             }
 
