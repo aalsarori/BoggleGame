@@ -172,15 +172,114 @@ namespace AbdulsGame.Hubs
         // Get the results passed in
         public async Task SendResultScreen(string user, string message)
         {
+            // Open the connection
+            string connectionString = "Server=titan.cs.weber.edu, 10433;Database=AmandaShow;User ID=AmandaShow;Password=+h1sIsthenewP@ssword!";
+            connection = new SqlConnection(connectionString);
+            connection.Open();
+
             // Get the scores from the users
+            // Pass in initial names ands scores by drawing from database and passing them in
+            string getinitialnamesandscores = "SELECT usernameOne, usernameTwo, userOneScore, userTwoScore FROM games WHERE game_code = 1";
+
+            // Create a list to store values to
+            List<string> newScores = new List<string>();
+
+            // Run the query
+            SqlCommand db = new SqlCommand(getinitialnamesandscores, connection);
+            db.CommandType = CommandType.Text;
+
+            using (SqlDataReader objReader = db.ExecuteReader())
+            {
+                if (objReader.HasRows)
+                {
+                    while (objReader.Read())
+                    {
+                        //I would also check for DB.Null here before reading the value.
+                        string item = objReader.GetString(objReader.GetOrdinal("usernameOne"));
+                        newScores.Add(item);
+
+                        item = objReader.GetString(objReader.GetOrdinal("usernameTwo"));
+                        newScores.Add(item);
+
+                        item = objReader.GetString(objReader.GetOrdinal("userOneScore"));
+                        newScores.Add(item);
+
+                        item = objReader.GetString(objReader.GetOrdinal("userTwoScore"));
+                        newScores.Add(item);
+                    }
+                }
+            }
+
+            // Set them equal to the variables
+            string user1 = newScores[0];
+            string user2 = newScores[1];
+            string score1 = newScores[2];
+            string score2 = newScores[3];
+
+            // Pass it in
+            await Clients.All.SendAsync("SendFinalScores", user1, score1, user2, score2);
 
             // Get the words from the users
+            List<string> user1words = new List<string>();
+            List<string> user2words = new List<string>();
+            string getuser1words = string.Format("SELECT word FROM guesses WHERE username = '{0}' ", user1);
+            string getuser2words = string.Format("SELECT word FROM guesses WHERE username = '{0}' ", user2);
+
+            // Run the query
+            db = new SqlCommand(getuser1words, connection);
+            db.CommandType = CommandType.Text;
+
+            using (SqlDataReader objReader = db.ExecuteReader())
+            {
+                if (objReader.HasRows)
+                {
+                    while (objReader.Read())
+                    {
+                        //I would also check for DB.Null here before reading the value.
+                        string item = objReader.GetString(objReader.GetOrdinal("word"));
+                        user1words.Add(item);
+                    }
+                }
+            }
+
+            // Run the query
+            db = new SqlCommand(getuser2words, connection);
+            db.CommandType = CommandType.Text;
+
+            using (SqlDataReader objReader = db.ExecuteReader())
+            {
+                if (objReader.HasRows)
+                {
+                    while (objReader.Read())
+                    {
+                        //I would also check for DB.Null here before reading the value.
+                        string item = objReader.GetString(objReader.GetOrdinal("word"));
+                        user2words.Add(item);
+                    }
+                }
+            }
+
+            await Clients.All.SendAsync("SendWordLists", user1words, user2words);
 
             // Decide the winner
+            string winner = "";
 
-            // Send them all out
+            if(int.Parse(score1) > int.Parse(score2))
+            {
+                winner = user1;
+            }
+            else if (int.Parse(score1) < int.Parse(score2))
+            {
+                winner = user2;
+            }
+            else
+            {
+                winner = "TIE";
+            }
 
-            await Clients.All.SendAsync("ReceiveMessage", user, message);
+            await Clients.All.SendAsync("SendWinner", winner);
+
+            connection.Close();
         }
 
         // Create the game board
