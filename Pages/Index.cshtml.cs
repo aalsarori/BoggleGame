@@ -176,13 +176,13 @@ public class IndexModel : PageModel
             foreach(string a in word)
             { 
                 // Pass each one into wordRemix
-                char[] charlist = wordRemix(word);
+                //char[] charlist = wordRemix(word);
 
-                foreach(char letter in charlist)
+                /*foreach(char letter in charlist)
                 {                   
                     // Add the arrayRemix it returns to a bigger array
-                    returnList.Add(arrayRemix);
-                }
+                   // returnList.Add(arrayRemix);
+                }*/
             }
 
             // Return the array
