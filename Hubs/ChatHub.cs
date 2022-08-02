@@ -88,8 +88,6 @@ namespace AbdulsGame.Hubs
                     arr.Add('b');
                 }
 
-                
-
                 // Pass in initial names ands scores by drawing from database and passing them in
                 string getinitialnamesandscores = "SELECT usernameOne, usernameTwo, userOneScore, userTwoScore FROM games WHERE game_code = 1";
 
@@ -137,6 +135,14 @@ namespace AbdulsGame.Hubs
         // Get the results passed in
         public async Task SendResultScreen(string user, string message)
         {
+            // Get the scores from the users
+
+            // Get the words from the users
+
+            // Decide the winner
+
+            // Send them all out
+
             await Clients.All.SendAsync("ReceiveMessage", user, message);
         }
 
