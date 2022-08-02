@@ -89,15 +89,42 @@ namespace AbdulsGame.Hubs
                 }
 
                 // Pass in initial names ands scores by drawing from database and passing them in
-                string getinitialnamesandscores = "SELECT usernameOne, usernameTwo, userOneScore, userTwoScore FROM games WHERE game_code = 1";
+                string getinitialnamesandscores = "SELECT usernameOne, usernameTwo, userOneScore, userTwoScore FROM games WHERE game_code = 1"; // Build query
+
+                // Create a list to store values to
+                List<string> newScores = new List<string>();
 
                 // Run the query
+                db = new SqlCommand(getinitialnamesandscores, connection);
+                db.CommandType = CommandType.Text;
+                using (SqlDataReader objReader = db.ExecuteReader())
+                {
+                    if (objReader.HasRows)
+                    {
+                        while (objReader.Read())
+                        {
+                            //I would also check for DB.Null here before reading the value.
+                            string item = objReader.GetString(objReader.GetOrdinal("usernameOne"));
+                            newScores.Add(item);
 
+                            item = objReader.GetString(objReader.GetOrdinal("usernameTwo"));
+                            newScores.Add(item);
+
+                            item = objReader.GetString(objReader.GetOrdinal("userOneScore"));
+                            newScores.Add(item);
+
+                            item = objReader.GetString(objReader.GetOrdinal("userTwoScore"));
+                            newScores.Add(item);
+                        }
+                    }
+                }
+
+                // If that doesn't work, query each individually
                 // Set them equal to the variables
-                string user1 = "usernameOne";
-                string user2 = "usernameTwo";
-                string score1 = "userOneScore";
-                string score2 = "userTwoScore";
+                string user1 = newScores[0];
+                string user2 = newScores[1];
+                string score1 = newScores[2];
+                string score2 = newScores[3];
 
                 // Pass it in
                 await Clients.All.SendAsync("SendInitialScores", user1, score1, user2, score2);
@@ -115,9 +142,18 @@ namespace AbdulsGame.Hubs
         public async Task ReceiveWord(string user, string word)
         {
             // Put the word into the database
+            string executeWordGuessed = string.Format("SELECT dbo.WordGuessed(1, '{0}', '{1}');",user,word);
+            //execute the executeWordGuessed string
+            //if 0 is returned, word has already been guessed by user in current game
+            //if -1 is returned, word is not a real word in dictionary table
+            //if -2 is returned, username is invalid
+            //if -3 is returned, gameNumber is invalid
+            //if > 0 word is valid and not guessed yet. sp_UpdateUserScore then needs to be called to add word to guessed words list
+            //      and add to user's score
 
             // Pull out each users name and score
-
+            string getScore = string.Format("SELECT * FROM dbo.getUserScore(1,'{0}');",user);
+            //getUserScore returns a table @Scores with columns: (UsernameOne,UsernameTwo,UserOneScore,UserTwoScore)
             // Assign them
             string user1 = "";
             string score1 = "";
