@@ -1,11 +1,15 @@
 ﻿using Microsoft.AspNetCore.SignalR;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
 using System.Threading.Tasks;
 
 namespace AbdulsGame.Hubs
 {
     public class ChatHub : Hub
     {
+        public SqlConnection connection;
+
         public async Task SendMessage(string user, string message)
         {
             await Clients.All.SendAsync("ReceiveMessage", user, message);
@@ -14,13 +18,17 @@ namespace AbdulsGame.Hubs
         // Get the game to start
         public async Task WaitToStart(string user)
         {
+            // Open the connection
+            string connectionString = "Server=titan.cs.weber.edu, 10433;Database=AmandaShow;User ID=AmandaShow;Password=+h1sIsthenewP@ssword!";
+            connection = new SqlConnection(connectionString);
+            connection.Open();
+
             // Insert player name into the session table
             string insert = string.Format("INSERT INTO game_session (Game_Code,Player) VALUES (1,'{0}');", user);
 
             // Run the query
-
-
-
+            SqlCommand db = new SqlCommand(insert, connection);
+            db.ExecuteNonQuery();
 
 
             // Check if count where gamecode = gamecode of game session >= 2.
@@ -28,11 +36,10 @@ namespace AbdulsGame.Hubs
             int check_result = 0;
 
             // Get result of query
+            db = new SqlCommand(check, connection);
+            check_result = (int)db.ExecuteScalar();
 
-
-
-
-
+            // Check results, act accordingly
             if(check_result == 1 || check_result == 0)
             {
                 // Send this to a function that will display a waiting screen
@@ -43,11 +50,28 @@ namespace AbdulsGame.Hubs
                 // Build query
                 string getplayers = "SELECT Player FROM game_session WHERE Game_Code = 1 ORDER BY Player ASC";
 
-                // Run query
+                // Create a list to store values to
+                List<string> newPlayers = new List<string>();
+
+                // Run the query
+                db = new SqlCommand(getplayers, connection);
+                db.CommandType = CommandType.Text;
+                using (SqlDataReader objReader = db.ExecuteReader())
+                {
+                    if (objReader.HasRows)
+                    {
+                        while (objReader.Read())
+                        {
+                            //I would also check for DB.Null here before reading the value.
+                            string item = objReader.GetString(objReader.GetOrdinal("Player"));
+                            newPlayers.Add(item);
+                        }
+                    }
+                }
 
                 // Make the loop variables
-                string player_one = "";
-                string player_two = "";
+                string player_one = newPlayers[0];
+                string player_two = newPlayers[1];
 
                 // Make a for loop that sets the first to player_one and the second to player two
 
@@ -85,7 +109,8 @@ namespace AbdulsGame.Hubs
 
             }
 
-
+            // Close connection.
+            connection.Close();
         }
 
         // Get the points to update
