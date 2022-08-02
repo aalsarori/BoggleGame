@@ -83,6 +83,7 @@ namespace AbdulsGame.Hubs
                 db.ExecuteNonQuery();
 
                 // Get the game board and pass it in
+                // Take the game board functionality from Tan and add it in
                 List<char> arr = new List<char>();
 
                 for(int i = 0; i < 16; i++)
