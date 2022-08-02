@@ -141,9 +141,18 @@ namespace AbdulsGame.Hubs
         public async Task ReceiveWord(string user, string word)
         {
             // Put the word into the database
+            string executeWordGuessed = string.Format("SELECT dbo.WordGuessed(1, '{0}', '{1}');",user,word);
+            //execute the executeWordGuessed string
+            //if 0 is returned, word has already been guessed by user in current game
+            //if -1 is returned, word is not a real word in dictionary table
+            //if -2 is returned, username is invalid
+            //if -3 is returned, gameNumber is invalid
+            //if > 0 word is valid and not guessed yet. sp_UpdateUserScore then needs to be called to add word to guessed words list
+            //      and add to user's score
 
             // Pull out each users name and score
-
+            string getScore = string.Format("SELECT * FROM dbo.getUserScore(1,'{0}');",user);
+            //getUserScore returns a table @Scores with columns: (UsernameOne,UsernameTwo,UserOneScore,UserTwoScore)
             // Assign them
             string user1 = "";
             string score1 = "";
