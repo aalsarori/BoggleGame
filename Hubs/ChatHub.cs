@@ -79,6 +79,8 @@ namespace AbdulsGame.Hubs
                 string setplayers = string.Format("INSERT INTO games (usernameOne,usernameTwo,game_code) VALUES ('{0}','{1}', 1);", player_one, player_two);
 
                 // Run the query
+                db = new SqlCommand(setplayers, connection);
+                db.ExecuteNonQuery();
 
                 // Get the game board and pass it in
                 List<char> arr = new List<char>();
