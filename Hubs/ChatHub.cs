@@ -131,7 +131,6 @@ namespace AbdulsGame.Hubs
 
                 // Pass the array
                 await Clients.All.SendAsync("GameBoard", arr);
-
             }
 
             // Close connection.
