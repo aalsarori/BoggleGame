@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.SignalR;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace AbdulsGame.Hubs
@@ -40,7 +41,7 @@ namespace AbdulsGame.Hubs
             else
             {
                 // Build query
-                string getplayers = "SELECT Player FROM game_session WHERE Game_Code = 1";
+                string getplayers = "SELECT Player FROM game_session WHERE Game_Code = 1 ORDER BY Player ASC";
 
                 // Run query
 
@@ -51,11 +52,18 @@ namespace AbdulsGame.Hubs
                 // Make a for loop that sets the first to player_one and the second to player two
 
                 // Insert player name into player table, set score = 0.
-                string setplayers = string.Format("INSERT INTO games(usernameOne,usernameTwo) VALUES ('{0}','{1}');", player_one, player_two);
+                string setplayers = string.Format("INSERT INTO games (usernameOne,usernameTwo,game_code) VALUES ('{0}','{1}', 1);", player_one, player_two);
 
                 // Run the query
 
                 // Get the game board and pass it in
+                List<char> arr = new List<char>();
+
+                for(int i = 0; i < 16; i++)
+                {
+                    arr.Add('b');
+                }
+
 
                 // Pass in initial names ands scores by drawing from database and passing them in
 
