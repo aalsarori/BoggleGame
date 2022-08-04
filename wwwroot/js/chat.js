@@ -28,3 +28,17 @@ document.getElementById("sendButton").addEventListener("click", function (event)
     });
     event.preventDefault();
 });
+
+// Wait To Start
+
+// Waiting Message
+
+// Send Initial Scores
+
+// Send Scores
+
+// Send Final Scores
+
+// Send Words Lists
+
+// Send Winner
