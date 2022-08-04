@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.SignalR;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace AbdulsGame.Hubs
@@ -83,13 +85,8 @@ namespace AbdulsGame.Hubs
                 db.ExecuteNonQuery();
 
                 // Get the game board and pass it in
-                // Take the game board functionality from Tan and add it in
                 List<char> arr = new List<char>();
-
-                for(int i = 0; i < 16; i++)
-                {
-                    arr.Add('b');
-                }
+                arr = wordsRemix;
 
                 // Pass in initial names ands scores by drawing from database and passing them in
                 string getinitialnamesandscores = "SELECT usernameOne, usernameTwo, userOneScore, userTwoScore FROM games WHERE game_code = 1"; // Build query
@@ -285,6 +282,29 @@ namespace AbdulsGame.Hubs
 
         // Create the game board
 
+        // Return a random consonant
+        public char RandomConsonant(string word)
+        {
+            // Make the list of consonants
+            char[] consonants = "BCDFGHJKLMNPQRSTVWXYZ".ToCharArray();
+
+            // Make the random number
+            Random rnd = new Random();
+            int randomnumber = rnd.Next(0, (consonants.Length)); // creates a number between 1 and 12
+
+            // Choose the random consonant
+            char randomchar = consonants[randomnumber];
+
+            // Use recursion until the word doesn't already contain that character
+            if (word.Contains(randomchar))
+            {
+                randomchar = RandomConsonant(word);
+            }
+
+            // Return the value
+            return randomchar;
+        }
+
         // Return a random vowel
         public char RandomVowel
         {
@@ -320,19 +340,24 @@ namespace AbdulsGame.Hubs
 
                 // Add the vowels
                 first += RandomVowel;
-                second += RandomVowel;
-                third += RandomVowel;
-                fourth += RandomVowel;
+                first += RandomVowel;
+                first += RandomConsonant(first);
+                first += RandomConsonant(first);
 
-                // Add the consonants
-                for (int i = 0; i < 3; i++)
-                {
-                    // Add a random consonant
-                    first += RandomConsonant(first);
-                    second += RandomConsonant(second);
-                    third += RandomConsonant(third);
-                    fourth += RandomConsonant(fourth);
-                }
+                second += RandomVowel;
+                second += RandomVowel;
+                second += RandomConsonant(second);
+                second += RandomConsonant(second);
+
+                third += RandomVowel;
+                third += RandomVowel;
+                third += RandomConsonant(third);
+                third += RandomConsonant(third);
+
+                fourth += RandomVowel;
+                fourth += RandomConsonant(fourth);
+                fourth += RandomConsonant(fourth);
+                fourth += RandomConsonant(fourth);
 
                 // Add the four words to an array
                 words.Add(first);
@@ -349,7 +374,7 @@ namespace AbdulsGame.Hubs
         {
             char[] arrayRemix = word.ToCharArray();
             Random ran = new Random();
-            int a = array.Length;
+            int a = arrayRemix.Length;
             while (a > 1)
             {
                 a--;
@@ -384,11 +409,11 @@ namespace AbdulsGame.Hubs
                 }
 
                 //check for duplicates
-                List<char> returnList = tempList.Distinct().ToArray();
+                List<char> returnList = tempList.Distinct().ToList();
 
                 // check for 16 chars
                 int wordcount = 0;
-                foreach (char letter in charlist)
+                foreach (char letter in returnList)
                 {
                     wordcount++;
                 }
