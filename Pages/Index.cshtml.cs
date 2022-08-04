@@ -130,19 +130,24 @@ public class IndexModel : PageModel
 
             // Add the vowels
             first += RandomVowel;
-            second += RandomVowel;
-            third += RandomVowel;
-            fourth += RandomVowel;
+            first += RandomVowel;
+            first += RandomConsonant(first);
+            first += RandomConsonant(first);
 
-            // Add the consonants
-            for (int i = 0; i < 3; i++)
-            {
-                // Add a random consonant
-                first += RandomConsonant(first);
-                second += RandomConsonant(second);
-                third += RandomConsonant(third);
-                fourth += RandomConsonant(fourth);
-            }
+            second += RandomVowel;
+            second += RandomVowel;
+            second += RandomConsonant(second);
+            second += RandomConsonant(second);
+
+            third += RandomVowel;
+            third += RandomVowel;
+            third += RandomConsonant(third);
+            third += RandomConsonant(third);
+
+            fourth += RandomVowel;
+            fourth += RandomConsonant(fourth);
+            fourth += RandomConsonant(fourth);
+            fourth += RandomConsonant(fourth);
 
             // Add the four words to an array
             words.Add(first);
