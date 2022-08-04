@@ -168,7 +168,7 @@ public class IndexModel : PageModel
     {
         get
         {
-            List<char> returnList = new List<char>();
+            List<char> tempList = new List<char>();
 
             List<string> word = CreateWords;
 
@@ -179,13 +179,29 @@ public class IndexModel : PageModel
                 char[] charlist = wordRemix(word);
 
                 foreach(char letter in charlist)
-                {                   
+                {   
                     // Add the arrayRemix it returns to a bigger array
-                    returnList.Add(arrayRemix);
+                    tempList.Add(arrayRemix);
                 }
             }
 
-            // Return the array
+            //check for duplicates
+            List<char> returnList = tempList.Distinct().ToArray();
+
+            // check for 16 chars
+            int wordcount = 0;
+            foreach(char letter in charlist)
+            { 
+                wordcount++;
+            }
+
+            while(wordcount < 16)
+            { 
+                returnList.Add(RandomVowel);
+                wordcount++;
+            }
+
+            // return array
             return returnList;
         }   
     }
