@@ -143,29 +143,68 @@ namespace AbdulsGame.Hubs
         // Get the points to update
         public async Task ReceiveWord(string user, string word)
         {
-            // Put the word into the database
+
+            // Open the connection
+            string connectionString = "Server=titan.cs.weber.edu, 10433;Database=AmandaShow;User ID=AmandaShow;Password=+h1sIsthenewP@ssword!";
+            connection = new SqlConnection(connectionString);
+            connection.Open();
+
+            // See if the user already guessed the word
             string executeWordGuessed = string.Format("SELECT dbo.WordGuessed(1, '{0}', '{1}');",user,word);
             //execute the executeWordGuessed string
+            SqlCommand db = new SqlCommand(executeWordGuessed, connection);
+
+            int check_result = 0;
+            check_result = (int)db.ExecuteScalar();
+
             //if 0 is returned, word has already been guessed by user in current game
             //if -1 is returned, word is not a real word in dictionary table
             //if -2 is returned, username is invalid
             //if -3 is returned, gameNumber is invalid
             //if > 0 word is valid and not guessed yet. sp_UpdateUserScore then needs to be called to add word to guessed words list
             //      and add to user's score
-
+            string executeUpdateUserScore = string.Format("EXEC sp_UpdateUserScore @gameNumber = 1, @username = '{0}', @score = '{1}', @word = '{2}' GO",user,check_result,word);
+            if (check_result > 0)
+            {
+                db = new SqlCommand(executeUpdateUserScore, connection);
+                db.ExecuteNonQuery();
+            }
             // Pull out each users name and score
-            string getScore = string.Format("SELECT * FROM dbo.getUserScore(1,'{0}');",user);
-            //getUserScore returns a table @Scores with columns: (UsernameOne,UsernameTwo,UserOneScore,UserTwoScore)
+            string getScore = "SELECT usernameOne, usernameTwo, userOneScore, userTwoScore FROM games WHERE game_code = 1";
+            db = new SqlCommand(getScore, connection);
+
             // Assign them
-            string user1 = "";
-            string score1 = "";
-            string user2 = "";
-            string score2 = "";
+            List<string> newScores = new List<string>();
+            db.CommandType = CommandType.Text;
+            using (SqlDataReader objReader = db.ExecuteReader())
+            {
+                if (objReader.HasRows)
+                {
+                    while (objReader.Read())
+                    {
+                        //I would also check for DB.Null here before reading the value.
+                        string item = objReader.GetString(objReader.GetOrdinal("usernameOne"));
+                        newScores.Add(item);
+
+                        item = objReader.GetString(objReader.GetOrdinal("usernameTwo"));
+                        newScores.Add(item);
+
+                        item = objReader.GetString(objReader.GetOrdinal("userOneScore"));
+                        newScores.Add(item);
+
+                        item = objReader.GetString(objReader.GetOrdinal("userTwoScore"));
+                        newScores.Add(item);
+                    }
+                }
+            }
+
+            // set them to variables
+            string user1 = newScores[0];
+            string user2 = newScores[1];
+            string score1 = newScores[2];
+            string score2 = newScores[3];
 
             // Send them back
-            await Clients.All.SendAsync("SendScoresUser1", user1, score1);
-            await Clients.All.SendAsync("SendScoresUser2", user2, score2);
-            // or
             await Clients.All.SendAsync("SendScores", user1, score1, user2, score2);
 
         }
