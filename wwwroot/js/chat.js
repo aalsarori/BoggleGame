@@ -1,10 +1,10 @@
-﻿"use strict";
-
+﻿/// SAMPLE CODE
+/// SAMPLE CODE
+/// SAMPLE CODE
+"use strict";
 var connection = new signalR.HubConnectionBuilder().withUrl("/chatHub").build();
-
 //Disable the send button until connection is established.
 document.getElementById("sendButton").disabled = true;
-
 connection.on("ReceiveMessage", function (user, message) {
     var li = document.createElement("li");
     document.getElementById("messagesList").appendChild(li);
@@ -13,13 +13,11 @@ connection.on("ReceiveMessage", function (user, message) {
     // should be aware of possible script injection concerns.
     li.textContent = `${user} says ${message}`;
 });
-
 connection.start().then(function () {
     document.getElementById("sendButton").disabled = false;
 }).catch(function (err) {
     return console.error(err.toString());
 });
-
 document.getElementById("sendButton").addEventListener("click", function (event) {
     var user = document.getElementById("userInput").value;
     var message = document.getElementById("messageInput").value;
@@ -28,13 +26,16 @@ document.getElementById("sendButton").addEventListener("click", function (event)
     });
     event.preventDefault();
 });
+/// SAMPLE CODE
+/// SAMPLE CODE
+/// SAMPLE CODE
+
 
 // Wait To Start
 // Customize code to send to WaitToStart, pass in the variables
 document.getElementById("sendButton").addEventListener("click", function (event) {
     var user = document.getElementById("userInput").value;
-    var message = document.getElementById("messageInput").value;
-    connection.invoke("WaitToStart", user, message).catch(function (err) {
+    connection.invoke("WaitToStart", user).catch(function (err) {
         return console.error(err.toString());
     });
     event.preventDefault();
@@ -67,21 +68,30 @@ document.getElementById("sendButton").addEventListener("click", function (event)
 });
 
 // Send Scores
-connection.on("ReceiveMessage", function (user, message) {
+connection.on("SendScores", function (user, message) {
     // Abduls code
 });
 
-// Send Final Scores
-connection.on("ReceiveMessage", function (user, message) {
+// Results Screen
+// Customize code to send to WaitToStart, pass in the variables
+document.getElementById("sendButton").addEventListener("click", function (event) {
+    connection.invoke("SendResultScreen").catch(function (err) {
+        return console.error(err.toString());
+    });
+    event.preventDefault();
+});
+
+// Send Final Scores Lists
+connection.on("SendFinalScores", function (user, message) {
     // Abduls code
 });
 
 // Send Words Lists
-connection.on("ReceiveMessage", function (user, message) {
+connection.on("SendWordLists", function (user, message) {
     // Abduls code
 });
 
 // Send Winner
-connection.on("ReceiveMessage", function (user, message) {
+connection.on("SendWinner", function (user, message) {
     // Abduls code
 });

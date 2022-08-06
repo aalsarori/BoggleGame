@@ -207,7 +207,7 @@ namespace AbdulsGame.Hubs
         }
 
         // Get the results passed in
-        public async Task SendResultScreen(string user, string message)
+        public async Task SendResultScreen()
         {
             // Open the connection
             string connectionString = "Server=titan.cs.weber.edu, 10433;Database=AmandaShow;User ID=AmandaShow;Password=+h1sIsthenewP@ssword!";
