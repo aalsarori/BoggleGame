@@ -42,17 +42,17 @@ document.getElementById("sendButton").addEventListener("click", function (event)
 });
 
 // Send Initial Scores
-connection.on("SendInitialScores", function (user, message) {
+connection.on("SendInitialScores", function (user1, score1, user2, score2) {
     // Abduls code
 });
 
 // Game Table
-connection.on("GameBoard", function (user, message) {
+connection.on("GameBoard", function (arr) {
     // Abduls code
 });
 
 // Waiting Message
-connection.on("WaitingMessage", function (user, message) {
+connection.on("WaitingMessage", function () {
     // Abduls code
 });
 
@@ -68,7 +68,7 @@ document.getElementById("sendButton").addEventListener("click", function (event)
 });
 
 // Send Scores
-connection.on("SendScores", function (user, message) {
+connection.on("SendScores", function (user1, score1, user2, score2) {
     // Abduls code
 });
 
@@ -82,16 +82,16 @@ document.getElementById("sendButton").addEventListener("click", function (event)
 });
 
 // Send Final Scores Lists
-connection.on("SendFinalScores", function (user, message) {
+connection.on("SendFinalScores", function (user1, score1, user2, score2) {
     // Abduls code
 });
 
 // Send Words Lists
-connection.on("SendWordLists", function (user, message) {
+connection.on("SendWordLists", function (user1words, user2words) {
     // Abduls code
 });
 
 // Send Winner
-connection.on("SendWinner", function (user, message) {
+connection.on("SendWinner", function (winner) {
     // Abduls code
 });
