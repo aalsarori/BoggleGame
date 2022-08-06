@@ -1,5 +1,7 @@
 ﻿@page
 @*    <!DOCTYPE html>*@
+@model IndexModel
+
 
     <head>
         <title>Boggle</title>
@@ -21,5 +23,6 @@
         </div>
 
         <p id="print"></p>
-
+        
+        @Model.wordsRemix.ToString()
     </body>

@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 public class IndexModel : PageModel
 {
@@ -64,6 +65,13 @@ public class IndexModel : PageModel
         return "";
     }
 
+
+
+    /// <summary>
+    /// We also need to figure out how to do SignalR and time the match and end it at a certain time
+    /// </summary>
+    // Create the game board
+
     // Return a random consonant
     public char RandomConsonant(string word)
     {
@@ -119,22 +127,27 @@ public class IndexModel : PageModel
             string fourth = "";
 
             List<string> words = new List<string>();
-            
+
             // Add the vowels
             first += RandomVowel;
-            second += RandomVowel;
-            third += RandomVowel;
-            fourth += RandomVowel;
+            first += RandomVowel;
+            first += RandomConsonant(first);
+            first += RandomConsonant(first);
 
-            // Add the consonants
-            for(int i = 0; i < 3; i++)
-            {
-                // Add a random consonant
-                first += RandomConsonant(first);
-                second += RandomConsonant(second);
-                third += RandomConsonant(third);
-                fourth += RandomConsonant(fourth);
-            }
+            second += RandomVowel;
+            second += RandomVowel;
+            second += RandomConsonant(second);
+            second += RandomConsonant(second);
+
+            third += RandomVowel;
+            third += RandomVowel;
+            third += RandomConsonant(third);
+            third += RandomConsonant(third);
+
+            fourth += RandomVowel;
+            fourth += RandomConsonant(fourth);
+            fourth += RandomConsonant(fourth);
+            fourth += RandomConsonant(fourth);
 
             // Add the four words to an array
             words.Add(first);
@@ -146,56 +159,65 @@ public class IndexModel : PageModel
             return words;
         }
     }
-    
-    //public char[] wordRemix(string word)
-    //{
-    //    char[] arrayRemix = word.ToCharArray();
-    //    Random ran = new Random();
-    //    int a = array.Length;
-    //    while(a > 1)
-    //    {
-    //        a--;
-    //        int b = ran.Next(a+1);
-    //        var temp = arrayRemix[b];
-    //        arrayRemix[b] = arrayRemix[a];
-    //        arrayRemix[a] = temp;
-    //    }
-    //    return arrayRemix;
-    //}
+
+    public char[] wordRemix(string word)
+    {
+        char[] arrayRemix = word.ToCharArray();
+        Random ran = new Random();
+        int a = arrayRemix.Length;
+        while (a > 1)
+        {
+            a--;
+            int b = ran.Next(a + 1);
+            var temp = arrayRemix[b];
+            arrayRemix[b] = arrayRemix[a];
+            arrayRemix[a] = temp;
+        }
+        return arrayRemix;
+    }
 
     // Create function (call function)
     public List<char> wordsRemix
     {
         get
         {
-            List<char> returnList = new List<char>();
+            List<char> tempList = new List<char>();
 
             List<string> word = CreateWords;
 
             // Loop through the four words (for each)
-            foreach(string a in word)
-            { 
+            foreach (string a in word)
+            {
                 // Pass each one into wordRemix
-                //char[] charlist = wordRemix(word);
+                char[] charlist = wordRemix(a);
 
-                /*foreach(char letter in charlist)
-                {                   
+                foreach (char letter in charlist)
+                {
                     // Add the arrayRemix it returns to a bigger array
-                   // returnList.Add(arrayRemix);
-                }*/
+                    tempList.Add(letter);
+                }
             }
 
-            // Return the array
+            //check for duplicates
+            List<char> returnList = tempList.Distinct().ToList();
+
+            // check for 16 chars
+            int wordcount = 0;
+            foreach (char letter in returnList)
+            {
+                wordcount++;
+            }
+
+            while (wordcount < 16)
+            {
+                returnList.Add(RandomVowel);
+                wordcount++;
+            }
+
+            // return array
             return returnList;
-        }   
+        }
     }
-
-
-
-    /// <summary>
-    /// We also need to figure out how to do SignalR and time the match and end it at a certain time
-    /// </summary>
-
     public void OnGet()
     {
 

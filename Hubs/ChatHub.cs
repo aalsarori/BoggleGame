@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.SignalR;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace AbdulsGame.Hubs
@@ -83,13 +85,8 @@ namespace AbdulsGame.Hubs
                 db.ExecuteNonQuery();
 
                 // Get the game board and pass it in
-                // Take the game board functionality from Tan and add it in
                 List<char> arr = new List<char>();
-
-                for(int i = 0; i < 16; i++)
-                {
-                    arr.Add('b');
-                }
+                arr = wordsRemix;
 
                 // Pass in initial names ands scores by drawing from database and passing them in
                 string getinitialnamesandscores = "SELECT usernameOne, usernameTwo, userOneScore, userTwoScore FROM games WHERE game_code = 1"; // Build query
@@ -323,6 +320,153 @@ namespace AbdulsGame.Hubs
         }
 
         // Create the game board
+
+        // Return a random consonant
+        public char RandomConsonant(string word)
+        {
+            // Make the list of consonants
+            char[] consonants = "BCDFGHJKLMNPQRSTVWXYZ".ToCharArray();
+
+            // Make the random number
+            Random rnd = new Random();
+            int randomnumber = rnd.Next(0, (consonants.Length)); // creates a number between 1 and 12
+
+            // Choose the random consonant
+            char randomchar = consonants[randomnumber];
+
+            // Use recursion until the word doesn't already contain that character
+            if (word.Contains(randomchar))
+            {
+                randomchar = RandomConsonant(word);
+            }
+
+            // Return the value
+            return randomchar;
+        }
+
+        // Return a random vowel
+        public char RandomVowel
+        {
+            get
+            {
+                // Make the list of vowels
+                char[] vowels = "AEIOU".ToCharArray();
+
+                // Make the random number
+                Random rnd = new Random();
+                int randomnumber = rnd.Next(0, (vowels.Length)); // creates a number between 1 and 12
+
+                // Choose the random consonant
+                char randomchar = vowels[randomnumber];
+
+                // Return the value
+                return randomchar;
+            }
+        }
+
+        // Make the words to send to Tans function for him to scramble around
+        public List<string> CreateWords
+        {
+            get
+            {
+                // Create the variables
+                string first = "";
+                string second = "";
+                string third = "";
+                string fourth = "";
+
+                List<string> words = new List<string>();
+
+                // Add the vowels
+                first += RandomVowel;
+                first += RandomVowel;
+                first += RandomConsonant(first);
+                first += RandomConsonant(first);
+
+                second += RandomVowel;
+                second += RandomVowel;
+                second += RandomConsonant(second);
+                second += RandomConsonant(second);
+
+                third += RandomVowel;
+                third += RandomVowel;
+                third += RandomConsonant(third);
+                third += RandomConsonant(third);
+
+                fourth += RandomVowel;
+                fourth += RandomConsonant(fourth);
+                fourth += RandomConsonant(fourth);
+                fourth += RandomConsonant(fourth);
+
+                // Add the four words to an array
+                words.Add(first);
+                words.Add(second);
+                words.Add(third);
+                words.Add(fourth);
+
+                // Return the array
+                return words;
+            }
+        }
+
+        public char[] wordRemix(string word)
+        {
+            char[] arrayRemix = word.ToCharArray();
+            Random ran = new Random();
+            int a = arrayRemix.Length;
+            while (a > 1)
+            {
+                a--;
+                int b = ran.Next(a + 1);
+                var temp = arrayRemix[b];
+                arrayRemix[b] = arrayRemix[a];
+                arrayRemix[a] = temp;
+            }
+            return arrayRemix;
+        }
+
+        // Create function (call function)
+        public List<char> wordsRemix
+        {
+            get
+            {
+                List<char> tempList = new List<char>();
+
+                List<string> word = CreateWords;
+
+                // Loop through the four words (for each)
+                foreach (string a in word)
+                {
+                    // Pass each one into wordRemix
+                    char[] charlist = wordRemix(a);
+
+                    foreach (char letter in charlist)
+                    {
+                        // Add the arrayRemix it returns to a bigger array
+                        tempList.Add(letter);
+                    }
+                }
+
+                //check for duplicates
+                List<char> returnList = tempList.Distinct().ToList();
+
+                // check for 16 chars
+                int wordcount = 0;
+                foreach (char letter in returnList)
+                {
+                    wordcount++;
+                }
+
+                while (wordcount < 16)
+                {
+                    returnList.Add(RandomVowel);
+                    wordcount++;
+                }
+
+                // return array
+                return returnList;
+            }
+        }
 
     }
 }
