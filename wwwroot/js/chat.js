@@ -30,15 +30,58 @@ document.getElementById("sendButton").addEventListener("click", function (event)
 });
 
 // Wait To Start
-
-// Waiting Message
+// Customize code to send to WaitToStart, pass in the variables
+document.getElementById("sendButton").addEventListener("click", function (event) {
+    var user = document.getElementById("userInput").value;
+    var message = document.getElementById("messageInput").value;
+    connection.invoke("WaitToStart", user, message).catch(function (err) {
+        return console.error(err.toString());
+    });
+    event.preventDefault();
+});
 
 // Send Initial Scores
+connection.on("SendInitialScores", function (user, message) {
+    // Abduls code
+});
+
+// Game Table
+connection.on("GameBoard", function (user, message) {
+    // Abduls code
+});
+
+// Waiting Message
+connection.on("WaitingMessage", function (user, message) {
+    // Abduls code
+});
+
+// Receive Word
+// Customize code to send to WaitToStart, pass in the variables
+document.getElementById("sendButton").addEventListener("click", function (event) {
+    var user = document.getElementById("userInput").value;
+    var message = document.getElementById("messageInput").value;
+    connection.invoke("ReceiveWord", user, message).catch(function (err) {
+        return console.error(err.toString());
+    });
+    event.preventDefault();
+});
 
 // Send Scores
+connection.on("ReceiveMessage", function (user, message) {
+    // Abduls code
+});
 
 // Send Final Scores
+connection.on("ReceiveMessage", function (user, message) {
+    // Abduls code
+});
 
 // Send Words Lists
+connection.on("ReceiveMessage", function (user, message) {
+    // Abduls code
+});
 
 // Send Winner
+connection.on("ReceiveMessage", function (user, message) {
+    // Abduls code
+});
