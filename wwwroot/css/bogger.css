@@ -1,24 +1,24 @@
 :root {
     --grid-cols: 1;
     --grid-rows: 1;
-  }
-  
-  #container {
+}
+
+#container {
     width: 50%;
-    padding :1em;
-    position:center;
+    padding: 1em;
+    position: center;
     display: none;
     grid-gap: 0.2em;
     grid-template-rows: repeat(var(--grid-rows), 0.1fr);
     grid-template-columns: repeat(var(--grid-cols), 0.01fr);
-  }
+}
+
+/* .grid-item1 {
+  padding: 1em;
+  border: 1px solid #ddd;
+  text-align: center;
   
-  /* .grid-item1 {
-    padding: 1em;
-    border: 1px solid #ddd;
-    text-align: center;
-    
-  } */
+} */
 
 [id^="i "] {
     padding: 1em;
@@ -27,28 +27,45 @@
 }
 
 
-  #submit {
+#submit {
     position: absolute;
-  }
+}
 
-  p {
-
+p {
     position: absolute;
     padding: 1em;
-  }
+}
 
-  #button {
+.scoresContainer {
+    padding: 20px;
+}
+
+#scores1 {
+    width: 5%;
+    float: left;
+    padding: 0px;
+}
+
+#scores2 {
+    width: 5%;
+    float: left;
+    padding: 0px;
+}
+
+#button {
     padding: 1em;
-  }
+}
 
-  #timer {
+#timer {
+    clear: both;
     padding: 1em;
-  }
+    padding-top: 4em;
+}
 
-  #startButton {
-    position:flex;
-  }
-  
-  #secs {
+#startButton {
+    position: flex;
+}
+
+#secs {
     padding-top: 2em;
-  }
+}

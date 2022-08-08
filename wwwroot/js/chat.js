@@ -1,7 +1,4 @@
-﻿/// SAMPLE CODE
-/// SAMPLE CODE
-/// SAMPLE CODE
-"use strict";
+﻿"use strict";
 var connection = new signalR.HubConnectionBuilder().withUrl("/chatHub").build();
 //Disable the send button until connection is established.
 document.getElementById("sendButton").disabled = true;
@@ -44,11 +41,12 @@ document.getElementById("sendButton").addEventListener("click", function (event)
 // Send Initial Scores
 connection.on("SendInitialScores", function (user1, score1, user2, score2) {
     // Abduls code
-});
 
-// Game Table
-connection.on("GameBoard", function (arr) {
-    // Abduls code
+    //grab users and their scores and insert them into the html display <p> designated for them
+    document.getElementById("user1").innerHTML = "User: " + user1;
+    document.getElementById("user2").innerHTML = "User: " + user2;
+    document.getElementById("score1").innerHTML = "Score : " + score1;
+    document.getElementById("score2").innerHTML = "Score : " + score2;
 });
 
 // Waiting Message
@@ -70,6 +68,10 @@ document.getElementById("sendButton").addEventListener("click", function (event)
 // Send Scores
 connection.on("SendScores", function (user1, score1, user2, score2) {
     // Abduls code
+    document.getElementById("user1").innerHTML = "User: " + user1;
+    document.getElementById("user2").innerHTML = "User: " + user2;
+    document.getElementById("score1").innerHTML = "Score : " + score1;
+    document.getElementById("score2").innerHTML = "Score : " + score2;
 });
 
 // Results Screen
@@ -84,6 +86,11 @@ document.getElementById("sendButton").addEventListener("click", function (event)
 // Send Final Scores Lists
 connection.on("SendFinalScores", function (user1, score1, user2, score2) {
     // Abduls code
+
+    document.getElementById("user1").innerHTML = "User: " + user1;
+    document.getElementById("user2").innerHTML = "User: " + user2;
+    document.getElementById("score1").innerHTML = "Final Score : " + score1;
+    document.getElementById("score2").innerHTML = "Final Score : " + score2;
 });
 
 // Send Words Lists
@@ -94,4 +101,6 @@ connection.on("SendWordLists", function (user1words, user2words) {
 // Send Winner
 connection.on("SendWinner", function (winner) {
     // Abduls code
+
+    document.getElementById("winner").innerHTML = winner 
 });

@@ -1,12 +1,24 @@
 const container = document.getElementById("container");
 
-var arr = ['a', 'k', 'h', 'b', 'd', 'q', 'p', 'c', 'd', 'a', 'l', 'g', 'h', 'v', 'm', 't'];
+var arrLetters = ['a', 'k', 'h', 'b', 'd', 'q', 'p', 'c', 'd', 'a', 'l', 'g', 'h', 'v', 'm', 't'];
 var cellsArr = [16]
 var word = []
 var secsLeft
 var timer = null
 var timeStarted = false
 var letter = 0
+var id
+
+
+// Game Table
+/*connection.on("GameBoard", function (arr) {
+    // Abduls code
+
+    for (i = 0; i < 16; i++) {
+        arrLetters[i] = arr[i]
+    }
+});
+*/
 
 
 function makeRows(rows, cols) {
@@ -17,7 +29,7 @@ function makeRows(rows, cols) {
 
 
             let cell = document.createElement("div");
-            cell.innerText = (arr[letter]);
+            cell.innerText = (arrLetters[letter]);
 
 
 
@@ -50,6 +62,7 @@ function makeRows(rows, cols) {
                     cell.style.backgroundColor = "red";
                     cell.style.color = "white";
                     word.push(cell.innerText)
+                    id = cell.id
 
                 }
             });
@@ -67,6 +80,8 @@ function makeRows(rows, cols) {
 
 };
 makeRows(4, 4);
+makeUnclickable(1, 0)
+
 
 
 function tryit() {
@@ -123,6 +138,43 @@ function show() {
         "div#container { \
           display: grid; \
        } ", 0);
+
+}
+
+
+function makeUnclickable(i, j) {
+
+    cellsArr[i * 4 + j].replaceWith(cellsArr[i * 4 + j].cloneNode(true));
+
+};
+
+function makeClickable(i, j) {
+
+    var id = "i " + i + " " + j;
+    cell = document.getElementById(id)
+
+    cell.addEventListener('mouseover', () => {
+
+        cell.style.cursor = "pointer"
+    });
+
+    cell.addEventListener('click', () => {
+
+
+        if (cell.style.backgroundColor == "red") {
+            cell.style.backgroundColor = "white";
+            cell.style.color = "black";
+
+        }
+
+        else {
+
+            cell.style.backgroundColor = "red";
+            cell.style.color = "white";
+            word.push(cell.innerText)
+
+        }
+    });
 
 }
 

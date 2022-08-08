@@ -7,9 +7,30 @@
         <title>Boggle</title>
         <link rel="stylesheet" type="text/css" href="~/css/bogger.css">
         <script type="text/javascript" defer src="~/js/bogger.js"></script>
+        <script type="text/javascript" defer src="~/js/chat.js"></script>
+  
     </head>
 
     <body>
+
+        <h3 id="winner">Winner will be displayed here!</h3>
+
+        <div class="scoresContainer">
+            <div id="scores1">
+                <p id="user1">User: </p>
+
+                <br>
+                <p id="score1">Score: </p>
+
+            </div>
+
+            <div id="scores2">
+                <p id="user2">User: </p>
+                <br>
+                <p id="score2">Score: </p>
+
+            </div>
+        </div>
 
         <div id="timer">
             <span id="secs">01:00</span>
@@ -23,6 +44,6 @@
         </div>
 
         <p id="print"></p>
-        
+
         @Model.wordsRemix.ToString()
     </body>
