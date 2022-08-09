@@ -32,10 +32,12 @@ connection.start();
 // Wait To Start
 // Customize code to send to WaitToStart, pass in the variables
 window.onload = function () {
-    document.getElementById("startButton").addEventListener("click", function (event) {
-        var user = "Name"; // username they enter goes there as well
+    document.getElementById("submitUser").addEventListener("click", function (event) {
+        var user = document.getElementById("username").value; // username they enter goes here as well
+        console.log(user); // prints the user to the console for testing purposes
         connection.invoke("WaitToStart", user);
         event.preventDefault();
+        
     });
 
 
