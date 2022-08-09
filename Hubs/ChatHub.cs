@@ -75,6 +75,30 @@ namespace AbdulsGame.Hubs
                 string player_one = newPlayers[0];
                 string player_two = newPlayers[1];
 
+                if(player_one == player_two)
+                {// Build query
+                    string delp = "DELETE FROM game_session";
+                    // Run the query
+                    db = new SqlCommand(delp, connection);
+                    db.CommandType = CommandType.Text;
+                    player_one = "BBB";
+                    player_two = "AAA";
+
+                    // Insert player name into the session table
+                    string insert1 = string.Format("INSERT INTO game_session (Game_Code,Player) VALUES (1,'{0}');", player_one);
+
+                    // Run the query
+                    db = new SqlCommand(insert1, connection);
+                    db.ExecuteNonQuery();
+
+                    // Insert player name into the session table
+                    string insert2 = string.Format("INSERT INTO game_session (Game_Code,Player) VALUES (1,'{0}');", player_two);
+
+                    // Run the query
+                    db = new SqlCommand(insert2, connection);
+                    db.ExecuteNonQuery();
+                }
+
                 // Make a for loop that sets the first to player_one and the second to player two
 
                 // Insert player name into player table, set score = 0.
