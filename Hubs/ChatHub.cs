@@ -193,7 +193,7 @@ namespace AbdulsGame.Hubs
             // Open the connection
             string connectionString = "Server=titan.cs.weber.edu, 10433;Database=AmandaShow;User ID=AmandaShow;Password=+h1sIsthenewP@ssword!";
             connection = new SqlConnection(connectionString);
-            //connection.Open();
+            connection.Open();
 
             // Create the query for getting final scores
             string getFinalScores = String.Format("");
@@ -215,13 +215,13 @@ namespace AbdulsGame.Hubs
                         string item = objReader.GetString(objReader.GetOrdinal("usernameOne"));
                         newScores.Add(item);
 
-                        item = objReader.GetString(objReader.GetOrdinal("usernameTwo"));
+                        item = objReader.GetString(objReader.GetOrdinal("usernameTwo")); // If this is wrong, may need to call names individually and then score individually
                         newScores.Add(item);
 
-                        item = objReader.GetString(objReader.GetOrdinal("userOneScore"));
+                        item = objReader.GetString(objReader.GetOrdinal("userOneScore")); // may need to query individually, may just make a function for this at this point
                         newScores.Add(item);
 
-                        item = objReader.GetString(objReader.GetOrdinal("userTwoScore"));
+                        item = objReader.GetString(objReader.GetOrdinal("userTwoScore")); // may need to query individually, may just make a function for this at this point
                         newScores.Add(item);
                     }
                 }
@@ -243,7 +243,7 @@ namespace AbdulsGame.Hubs
 
             // Consider using timers between queries
 
-            // Clear the game sessions list and the word list and the score list
+
 
             // Pass it in
             await Clients.All.SendAsync("SendFinalScores", "Fake1", "100", "Fake2", "101");
@@ -255,17 +255,41 @@ namespace AbdulsGame.Hubs
             test1.Add("Guess3");
             test2.Add("Guess4");
 
-            // Clear the game sessions table and the word table and the score table and the games table
+            // Clear the game sessions list and the word list and the score list
+            string clearGames = "DELETE FROM games";
+            string clearGameSessions = "DELETE FROM game_session";
+            string clearWords = "DELETE FROM guesses";
+
+            // Run the queries
+            db = new SqlCommand(clearGames, connection);
+            db.ExecuteNonQuery();
+
+            db = new SqlCommand(clearGameSessions, connection);
+            db.ExecuteNonQuery();
+
+            db = new SqlCommand(clearWords, connection);
+            db.ExecuteNonQuery();
 
             // Close the connection
-            //connection.Close();
+            connection.Close();
 
             // Send the relevant data
             await Clients.All.SendAsync("SendWordLists", test1, test2);
             await Clients.All.SendAsync("SendWinner", "Fake2");
         }
-
-        // Create the game board
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        /// <summary>
+        /// Create the game board
+        /// </summary>
 
         // Return a random consonant
         public char RandomConsonant(string word)
