@@ -1,24 +1,54 @@
 ﻿"use strict";
 var connection = new signalR.HubConnectionBuilder().withUrl("/chatHub").build();
+//Disable the send button until connection is established.
+//document.getElementById("sendButton").disabled = true;
+//connection.on("ReceiveMessage", function (user, message) {
+//    var li = document.createElement("li");
+//    document.getElementById("messagesList").appendChild(li);
+//    // We can assign user-supplied strings to an element's textContent because it
+//    // is not interpreted as markup. If you're assigning in any other way, you 
+//    // should be aware of possible script injection concerns.
+//    li.textContent = `${user} says ${message}`;
+//});
+//connection.start().then(function () {
+//    document.getElementById("sendButton").disabled = false;
+//}).catch(function (err) {
+//    return console.error(err.toString());
+//});
+//document.getElementById("sendButton").addEventListener("click", function (event) {
+//    var user = document.getElementById("userInput").value;
+//    var message = document.getElementById("messageInput").value;
+//    connection.invoke("SendMessage", user, message).catch(function (err) {
+//        return console.error(err.toString());
+//    });
+//    event.preventDefault();
+//});
+/// SAMPLE CODE
+/// SAMPLE CODE
+/// SAMPLE CODE
+
 
 // Wait To Start
 // Customize code to send to WaitToStart, pass in the variables
-document.getElementById("startButton").addEventListener("click", function (event) {
-    var user = "hi";
-    connection.invoke("WaitToStart", user).catch(function (err) {
-        return console.error(err.toString());
+window.onload = function () {
+    document.getElementById("sendButton").addEventListener("click", function (event) {
+        var user = document.getElementById("userInput").value;
+        connection.invoke("WaitToStart", user).catch(function (err) {
+            return console.error(err.toString());
+        });
+        event.preventDefault();
     });
-    event.preventDefault();
-});
+}
 
 // Send Initial Scores
 connection.on("SendInitialScores", function (user1, score1, user2, score2) {
     // Abduls code
 
+    score1 = 0;
     //grab users and their scores and insert them into the html display <p> designated for them
     document.getElementById("user1").innerHTML = "User: " + user1;
-    document.getElementById("user2").innerHTML = "User: " + user2;
-    document.getElementById("score1").innerHTML = "Score : " + score1;
+    document.getElementById("user2").innerHTML = "Userasdf: " + user2;
+    document.getElementById("score1").innerHTML = "Score afds: " + score1;
     document.getElementById("score2").innerHTML = "Score : " + score2;
 });
 
@@ -29,7 +59,7 @@ connection.on("WaitingMessage", function () {
 
 // Receive Word
 // Customize code to send to WaitToStart, pass in the variables
-document.getElementById("startButton").addEventListener("click", function (event) {
+document.getElementById("sendButton").addEventListener("click", function (event) {
     var user = document.getElementById("userInput").value;
     var message = document.getElementById("messageInput").value;
     connection.invoke("ReceiveWord", user, message).catch(function (err) {
@@ -41,6 +71,7 @@ document.getElementById("startButton").addEventListener("click", function (event
 // Send Scores
 connection.on("SendScores", function (user1, score1, user2, score2) {
     // Abduls code
+    score1 = 0;
     document.getElementById("user1").innerHTML = "User: " + user1;
     document.getElementById("user2").innerHTML = "User: " + user2;
     document.getElementById("score1").innerHTML = "Score : " + score1;
@@ -49,7 +80,7 @@ connection.on("SendScores", function (user1, score1, user2, score2) {
 
 // Results Screen
 // Customize code to send to WaitToStart, pass in the variables
-document.getElementById("startButton").addEventListener("click", function (event) {
+document.getElementById("sendButton").addEventListener("click", function (event) {
     connection.invoke("SendResultScreen").catch(function (err) {
         return console.error(err.toString());
     });
@@ -60,6 +91,7 @@ document.getElementById("startButton").addEventListener("click", function (event
 connection.on("SendFinalScores", function (user1, score1, user2, score2) {
     // Abduls code
 
+    score1 = 0;
     document.getElementById("user1").innerHTML = "User: " + user1;
     document.getElementById("user2").innerHTML = "User: " + user2;
     document.getElementById("score1").innerHTML = "Final Score : " + score1;
@@ -75,5 +107,5 @@ connection.on("SendWordLists", function (user1words, user2words) {
 connection.on("SendWinner", function (winner) {
     // Abduls code
 
-    document.getElementById("winner").innerHTML = winner 
+    document.getElementById("winner").innerHTML = winner
 });
