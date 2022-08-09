@@ -1,89 +1,104 @@
-const container = document.getElementById("container");
+container = document.getElementById("container");
 
 var arr = ['a', 'k', 'h', 'b', 'd', 'q', 'p', 'c', 'd', 'a', 'l', 'g', 'h', 'v', 'm', 't'];
 var cellsArr = [16]
 var word = []
+var clickedList = []
 var secsLeft
 var timer = null
 var timeStarted = false
 var letter = 0
-var id
+var id = 1;
+var clickedID = 0
 
+//arrays for each grid clickables
+var one = [2, 5, 6]
+var two = [1, 3, 5, 6, 7]
+var three = [2, 6, 7, 8, 4]
+var four = [3, 7, 8]
+var five = [1, 2, 6, 9, 10]
+var six = [1, 2, 3, 5, 7, 9, 10, 11]
+var seven = [2, 3, 4, 6, 8, 10, 11, 12]
+var eight = [3, 4, 7, 11, 12]
+var nine = [5, 6, 10, 13, 14]
+var ten = [5, 6, 7, 9, 11, 13, 14, 15]
+var eleven = [6, 7, 8, 10, 12, 14, 15, 16]
+var twelve = [7, 8, 11, 15, 16]
+var thir = [9, 10, 14]
+var forteen = [9, 10, 11, 13, 15]
+var fif = [10, 11, 12, 14, 16]
+var sixteen = [11, 12, 15]
+
+makeRows(4, 4);
 
 function makeRows(rows, cols) {
-    container.style.setProperty('--grid-rows', rows);
-    container.style.setProperty('--grid-cols', cols);
-    for (i = 0; i < (rows); i++) {
-        for (j = 0; j < cols; j++) {
+  container.style.setProperty('--grid-rows', rows);
+  container.style.setProperty('--grid-cols', cols);
+  for (i = 0; i < (rows); i++) {
+    for (j = 0; j < cols; j++) {
 
 
-            let cell = document.createElement("div");
-            cell.innerText = (arr[letter]);
-
-
-
-            cell.tagName = i + " " + j;
-
-            container.appendChild(cell).id = "i " + i + " " + j;
-
-            cell.addEventListener('mouseover', () => {
-
-                cell.style.cursor = "pointer"
-            });
+      let cell = document.getElementById(String(id));
+      cell.innerHTML = (arr[letter]);
 
 
 
-            cell.style.width = "20%"
+      // cell.tagName = i + " " + j;
+
+      // container.appendChild(cell).id = "i " + i + " " + j;
+
+      cell.addEventListener('mouseover', () => {
+
+        cell.style.cursor = "pointer"
+      });
 
 
 
-            cell.addEventListener('click', () => {
+      cell.style.width = "20%"
+
+      cell.addEventListener('click', () => {
+
+        if (clickedID > 0) {
+          makeUnclickable()
+        }
 
 
-                if (cell.style.backgroundColor == "red") {
-                    cell.style.backgroundColor = "white";
-                    cell.style.color = "black";
-
-                }
-
-                else {
-
-                    cell.style.backgroundColor = "red";
-                    cell.style.color = "white";
-                    word.push(cell.innerText)
-                    id = cell.id
-                    makeUnclickable(parseInt(id[2]), parseInt(id[4]))
-
-                }
-            });
-
-            letter++
-            cellsArr[i * 4 + j] = cell
+        if (cell.style.backgroundColor == "red") {
+          cell.style.backgroundColor = "white";
+          cell.style.color = "black";
 
         }
 
-    };
+        else {
 
+          cell.style.backgroundColor = "red";
+          cell.style.color = "white";
+          word.push(cell.innerHTML)
+          // id = cell.id
+          // makeUnclickable(parseInt(id[2]), parseInt(id[4]))
 
+        }
+      });
 
+      letter++
+      id++
+      cellsArr[i * 4 + j] = cell
 
+    }
+
+  };
 
 };
-makeRows(4, 4);
-
-
-
-
 
 
 function tryit() {
-    var i = 0
-    while (i < word.length) {
+  var i = 0
+  while (i < word.length) {
 
-        var p = document.getElementById("print")
-        p.innerHTML = p.innerHTML + word[i];
-        i++;
-    }
+    var p = document.getElementById("print")
+    p.innerHTML = p.innerHTML + word[i];
+    i++;
+  }
 
 }
 
@@ -93,119 +108,250 @@ document.getElementById("startButton").addEventListener("click", startTimer);
 // timer to run the clock down
 function startTimer() {
 
-    document.getElementById("startButton").style.display = "none";
-    show()
+  document.getElementById("startButton").style.display = "none";
+  show()
 
-    if (timer) clearInterval(timer);
-    // Timer that counts down 
-    secsLeft = 60
-    timer = setInterval(() => {
+  if (timer) clearInterval(timer);
+  // Timer that counts down 
+  secsLeft = 60
+  timer = setInterval(() => {
 
-        secsLeft--;
-        document.getElementById("secs").textContent = "00:" + Math.floor(secsLeft);
-        if (secsLeft === 0) {
-            hide();
-            clearInterval(timer)
-            document.getElementById("secs").textContent = "00:00"
+    secsLeft--;
+    document.getElementById("secs").textContent = "00:" + Math.floor(secsLeft);
+    if (secsLeft === 0) {
+      hide();
+      clearInterval(timer)
+      document.getElementById("secs").textContent = "00:00"
 
-        }
-        else if (secsLeft <= 9) {
-            document.getElementById("secs").textContent = "00:0" + Math.floor(secsLeft);
-        }
+    }
+    else if (secsLeft <= 9) {
+      document.getElementById("secs").textContent = "00:0" + Math.floor(secsLeft);
+    }
 
-    }, 1000);
+  }, 1000);
 
 
 }
+
 
 // show the grid
 function show() {
 
 
-    var style = document.createElement("style");
-    document.head.appendChild(style);
+  var style = document.createElement("style");
+  document.head.appendChild(style);
 
-    //Add rules to the style
-    document.styleSheets[document.styleSheets.length - 1].insertRule(
-        "div#container { \
+  //Add rules to the style
+  document.styleSheets[document.styleSheets.length - 1].insertRule(
+    "div#container { \
           display: grid; \
        } ", 0);
 
 }
 
 
-function makeUnclickable(r, c) {
+function getClickID(clickID) {
 
-    for (i = 0; i < 4; i++) {
-        for (j = 0; j < 4; j++) {
+  clickedID = clickID
+
+  console.log(clickedID)
+
+  clickedList.push(clickedID)
+
+}
 
 
-            if (i == r && j == c) {
-                continue
-            }
-            cellsArr[i * 4 + j].replaceWith(cellsArr[i * 4 + j].cloneNode(true));
 
-            // if the clicked grid is 0 0
+function makeUnclickable() {
 
-        }
-    }
-    if ((r == 1 && c == 1)) {
-        // makeClickable(parseInt(r + 1), parseInt(c + 1))
-        // makeClickable(parseInt(r + 1), parseInt(c))
-        // makeClickable(parseInt(r), parseInt(c + 1))
-        // makeClickable(3, 3)
-        makeClickable(2, 0)
-        makeClickable(2, 1)
+  for (i = 0; i < 4; i++) {
+    for (j = 0; j < 4; j++) {
+
+      //makes everything unclickable
+      cellsArr[i * 4 + j].style.pointerEvents = "none"
 
     }
+  }
 
+  makeClickable(clickedID)
 
 
 };
 
-function makeClickable(k, w) {
+function makeClickable(clickedID) {
+
+
+
+  //if (i === (parseInt(clickedID) + 1) || i === (parseInt(clickedID) - 1)) {
+
+  if (parseInt(clickedID) === 1) {
+
+    for (k = 0; k < one.length; k++) {
+      let cell = document.getElementById(String(one[k]));
+      cell.style.pointerEvents = "auto"
+    }
+  }
+
+  else if (parseInt(clickedID) === 2) {
+
+    for (k = 0; k < two.length; k++) {
+      let cell = document.getElementById(String(two[k]));
+      cell.style.pointerEvents = "auto"
+    }
+
+  }
+
+  else if (parseInt(clickedID) === 3) {
+
+    for (k = 0; k < three.length; k++) {
+      let cell = document.getElementById(String(three[k]));
+      cell.style.pointerEvents = "auto"
+    }
+
+  }
+
+  else if (parseInt(clickedID) === 4) {
+
+    for (k = 0; k < four.length; k++) {
+      let cell = document.getElementById(String(four[k]));
+      cell.style.pointerEvents = "auto"
+    }
+
+  }
+
+  else if (parseInt(clickedID) === 5) {
+
+    for (k = 0; k < five.length; k++) {
+      let cell = document.getElementById(String(five[k]));
+      cell.style.pointerEvents = "auto"
+    }
+  }
+
+  else if (parseInt(clickedID) === 6) {
+    for (k = 0; k < six.length; k++) {
+      let cell = document.getElementById(String(six[k]));
+      cell.style.pointerEvents = "auto"
+    }
+  }
+
+  else if (parseInt(clickedID) === 7) {
+    for (k = 0; k < seven.length; k++) {
+      let cell = document.getElementById(String(seven[k]));
+      cell.style.pointerEvents = "auto"
+    }
+  }
+
+  else if (parseInt(clickedID) === 8) {
+    for (k = 0; k < eight.length; k++) {
+      let cell = document.getElementById(String(eight[k]));
+      cell.style.pointerEvents = "auto"
+    }
+  }
+
+  else if (parseInt(clickedID) === 9) {
+    for (k = 0; k < nine.length; k++) {
+      let cell = document.getElementById(String(nine[k]));
+      cell.style.pointerEvents = "auto"
+    }
+  }
+
+  else if (parseInt(clickedID) === 10) {
+    for (k = 0; k < ten.length; k++) {
+      let cell = document.getElementById(String(ten[k]));
+      cell.style.pointerEvents = "auto"
+    }
+  }
+
+  else if (parseInt(clickedID) === 11) {
+    for (k = 0; k < eleven.length; k++) {
+      let cell = document.getElementById(String(eleven[k]));
+      cell.style.pointerEvents = "auto"
+    }
+  }
+
+  else if (parseInt(clickedID) === 12) {
+    for (k = 0; k < twelve.length; k++) {
+      let cell = document.getElementById(String(twelve[k]));
+      cell.style.pointerEvents = "auto"
+    }
+  }
+
+  else if (parseInt(clickedID) === 13) {
+    for (k = 0; k < thir.length; k++) {
+      let cell = document.getElementById(String(thir[k]));
+      cell.style.pointerEvents = "auto"
+    }
+  }
+
+  else if (parseInt(clickedID) === 14) {
+    for (k = 0; k < forteen.length; k++) {
+      let cell = document.getElementById(String(forteen[k]));
+      cell.style.pointerEvents = "auto"
+    }
+  }
+
+  else if (parseInt(clickedID) === 15) {
+    for (k = 0; k < fif.length; k++) {
+      let cell = document.getElementById(String(fif[k]));
+      cell.style.pointerEvents = "auto"
+    }
+  }
+
+  else if (parseInt(clickedID) === 16) {
+    for (k = 0; k < sixteen.length; k++) {
+      let cell = document.getElementById(String(sixteen[k]));
+      cell.style.pointerEvents = "auto"
+    }
+  }
+
+  for (it = 0; it < clickedList.length; it++) {
+
+    let cell = document.getElementById(String(clickedList[it]));
+    cell.style.pointerEvents = "none"
+
+  }
 
 
 
 
-    var getID = "i " + k + " " + w;
-    cell = document.getElementById(getID)
+  // cell.addEventListener('mouseover', () => {
 
-    // cellsArr[k * 4 + w] = cell
+  //   cell.style.cursor = "pointer"
+  // });
 
-    cell.addEventListener('mouseover', () => {
+  // cell.style.width = "20%"
 
-        cell.style.cursor = "pointer"
-    });
+  // cell.addEventListener('click', () => {
 
-    cell.addEventListener('click', () => {
 
-        document.getElementById('testing').innerHTML = cell.id
+  //   if (cell.style.backgroundColor == "red") {
+  //     cell.style.backgroundColor = "white";
+  //     cell.style.color = "black";
 
-        if (cell.style.backgroundColor == "red") {
-            cell.style.backgroundColor = "white";
-            cell.style.color = "black";
+  //   }
 
-        }
+  //   else {
 
-        else {
+  //     cell.style.backgroundColor = "red";
+  //     cell.style.color = "white";
+  //     word.push(cell.innerHTML)
 
-            cell.style.backgroundColor = "red";
-            cell.style.color = "white";
-            word.push(cell.innerText)
+  //   }
 
-        }
-    });
+  //   cellsArr[i * 4 + j] = cell
+  // });
+  //}
 
-    //cellsArr[k * 4 + w].replaceWith(cell.cloneNode(true));
 
-}
+};
+
+
 
 
 
 // hide the grid
 function hide() {
 
-    document.getElementById("container").style.display = "none";
+  document.getElementById("container").style.display = "none";
 
 }
