@@ -168,10 +168,10 @@ namespace AbdulsGame.Hubs
                         item = objReader.GetString(objReader.GetOrdinal("usernameTwo"));
                         newScores.Add(item);
 
-                        item = objReader.GetString(objReader.GetOrdinal("userOneScore"));
+                        item = objReader.GetString(objReader.GetInt16("userOneScore")); // doesn't want to work, maybe query individually after you have the names
                         newScores.Add(item);
 
-                        item = objReader.GetString(objReader.GetOrdinal("userTwoScore"));
+                        item = objReader.GetString(objReader.GetInt16("userTwoScore")); // doesn't want to work, maybe query individually after you have the names
                         newScores.Add(item);
                     }
                 }
@@ -254,6 +254,8 @@ namespace AbdulsGame.Hubs
             test2.Add("Guess2");
             test1.Add("Guess3");
             test2.Add("Guess4");
+
+            // Clear the game sessions table and the word table and the score table and the games table
 
             // Close the connection
             //connection.Close();
