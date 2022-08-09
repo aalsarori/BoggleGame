@@ -61,8 +61,11 @@ window.onload = function () {
     // Customize code to send to WaitToStart, pass in the variables
 
     document.getElementById("submit").addEventListener("click", function (event) {
-        var user = "FakeUser"; // the user they enter will  go here
-        var word = "Word"; // send each word they submit
+        var user = document.getElementById("username").value; // the user they enter will  go here
+        var word = document.getElementById("print").innerHTML; // send each word they submit
+
+        console.log(user)
+        console.log(word)
         //check the word the user is sending
         connection.invoke("ReceiveWord", user, word);
     });

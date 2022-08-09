@@ -4,8 +4,7 @@
 }
 
 #enterUsername {
-
-    padding-top:3em;
+    padding-top: 3em;
 }
 
 #container {
@@ -20,18 +19,34 @@
 
 
 
-    /* .grid-item1 {
+/* .grid-item1 {
 padding: 1em;
 border: 1px solid #ddd;
 text-align: center;
 
 } */
 
-    /* [id^="1"] {
+/* [id^="1"] {
   padding: 1em;
   border: 1px solid #ddd;
   text-align: center;
 } */
+/*
+[id^="scores"] {
+    display: inline-block;
+    padding-left: 2em;
+    
+}*/
+
+/*[id^="score"] {
+    display: none;
+}*/
+
+[id^="user"] {
+    display: inline-block;
+    text-align:center;
+}
+
 
 #container div {
     padding: 1em;
