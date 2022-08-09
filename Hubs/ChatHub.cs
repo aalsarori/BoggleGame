@@ -17,6 +17,30 @@ namespace AbdulsGame.Hubs
             await Clients.All.SendAsync("ReceiveMessage", user, message);
         }
 
+        public void DeleteData()
+        {
+            // Start the connection
+            string connectionString = "Server=titan.cs.weber.edu, 10433;Database=AmandaShow;User ID=AmandaShow;Password=+h1sIsthenewP@ssword!";
+            connection = new SqlConnection(connectionString);
+            connection.Open();
+
+            string clearGames = "DELETE FROM games";
+            string clearGameSessions = "DELETE FROM game_session";
+            string clearWords = "DELETE FROM guesses";
+
+            // Run the queries
+            SqlCommand db = new SqlCommand(clearGames, connection);
+            db.ExecuteNonQuery();
+
+            db = new SqlCommand(clearGameSessions, connection);
+            db.ExecuteNonQuery();
+
+            db = new SqlCommand(clearWords, connection);
+            db.ExecuteNonQuery();
+
+            connection.Close();
+        }
+
         // Get the game to start
         public async Task WaitToStart(string user)
         {
