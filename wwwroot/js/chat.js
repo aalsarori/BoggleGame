@@ -4,7 +4,7 @@ var connection = new signalR.HubConnectionBuilder().withUrl("/chatHub").build();
 // Wait To Start
 // Customize code to send to WaitToStart, pass in the variables
 document.getElementById("startButton").addEventListener("click", function (event) {
-    var user = document.getElementById("userInput").value;
+    var user = "hi";
     connection.invoke("WaitToStart", user).catch(function (err) {
         return console.error(err.toString());
     });
