@@ -3,47 +3,49 @@
 @model IndexModel
 
 
-    <head>
-        <title>Boggle</title>
-        <link rel="stylesheet" type="text/css" href="~/css/bogger.css">
-        <script defer src="~/js/bogger.js"></script>
-        <script defer src="~/js/chat.js"></script>
-  
-    </head>
+<head>
+    <title>Boggle</title>
+    <link rel="stylesheet" type="text/css" href="~/css/bogger.css">
+    <script src="~/js/signalr/dist/browser/signalr.js"></script>
+    <script src="~/js/chat.js"></script>
+    <script src="~/js/bogger.js"></script>
 
-    <body>
 
-        <h3 id="winner">Winner will be displayed here!</h3>
+</head>
 
-        <div class="scoresContainer">
-            <div id="scores1">
-                <p id="user1">User: </p>
+<body>
 
-                <br>
-                <p id="score1">Score: </p>
+    <h3 id="winner">Winner will be displayed here!</h3>
 
-            </div>
+    <div class="scoresContainer">
+        <div id="scores1">
+            <p id="user1">User: </p>
 
-            <div id="scores2">
-                <p id="user2">User: </p>
-                <br>
-                <p id="score2">Score: </p>
+            <br>
+            <p id="score1">Score: </p>
 
-            </div>
         </div>
 
-        <div id="timer">
-            <span id="secs">01:00</span>
-            <input type="button" id="startButton" value="start game">
-        </div>
-        <div id="container">
-        </div>
+        <div id="scores2">
+            <p id="user2">User: </p>
+            <br>
+            <p id="score2">Score: </p>
 
-        <div id="button">
-            <input type="submit" id="submit" onclick="tryit()">
         </div>
+    </div>
 
-        <p id="print"></p>
+    <div id="timer">
+        <span id="secs">01:00</span>
+        <input type="button" id="startButton" value="start game">
+    </div>
+    <div id="container">
+    </div>
 
-        @Model.wordsRemix.ToString()
-    </body>
+    <div id="button">
+        <input type="submit" id="submit" onclick="tryit()">
+    </div>
+
+    <p id="print"></p>
+
+    @Model.wordsRemix.ToString()
+</body>
