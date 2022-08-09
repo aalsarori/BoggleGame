@@ -108,18 +108,13 @@ window.onload = function () {
     });
 
     connection.on("GameBoard", function (arr) {
-        console.log("worked!");
 
         for (i = 0; i < arr.length; i++) {
+ 
+            var num = i + 1
+            var c = document.getElementById(String(num));
+            c.innerHTML = arr[i]
 
-            var letter = 1;
-            cell = document.getElementById(String(letter));
-
-            cell.innerHTML = arr[i]
-
-            letter++;
-
-            console.log(arr[i])
         }
     });
 }
