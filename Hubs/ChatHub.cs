@@ -86,8 +86,10 @@ namespace AbdulsGame.Hubs
             string getFinalScores = String.Format("");
 
             // Run the query for getting final scores
+            SqlCommand db = new SqlCommand(getFinalScores, connection);
+            db.CommandType = CommandType.Text;
 
-            // Set them equal to variables
+            // Loop through and set them equal to variables
 
             // Get the users names
             // Create the query for getting the word lists
