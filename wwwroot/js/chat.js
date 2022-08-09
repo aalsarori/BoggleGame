@@ -3,7 +3,7 @@ var connection = new signalR.HubConnectionBuilder().withUrl("/chatHub").build();
 
 // Wait To Start
 // Customize code to send to WaitToStart, pass in the variables
-document.getElementById("sendButton").addEventListener("click", function (event) {
+document.getElementById("startButton").addEventListener("click", function (event) {
     var user = document.getElementById("userInput").value;
     connection.invoke("WaitToStart", user).catch(function (err) {
         return console.error(err.toString());
@@ -29,7 +29,7 @@ connection.on("WaitingMessage", function () {
 
 // Receive Word
 // Customize code to send to WaitToStart, pass in the variables
-document.getElementById("sendButton").addEventListener("click", function (event) {
+document.getElementById("startButton").addEventListener("click", function (event) {
     var user = document.getElementById("userInput").value;
     var message = document.getElementById("messageInput").value;
     connection.invoke("ReceiveWord", user, message).catch(function (err) {
@@ -49,7 +49,7 @@ connection.on("SendScores", function (user1, score1, user2, score2) {
 
 // Results Screen
 // Customize code to send to WaitToStart, pass in the variables
-document.getElementById("sendButton").addEventListener("click", function (event) {
+document.getElementById("startButton").addEventListener("click", function (event) {
     connection.invoke("SendResultScreen").catch(function (err) {
         return console.error(err.toString());
     });
