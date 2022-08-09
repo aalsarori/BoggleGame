@@ -131,22 +131,60 @@ namespace AbdulsGame.Hubs
             // Open the connection
             string connectionString = "Server=titan.cs.weber.edu, 10433;Database=AmandaShow;User ID=AmandaShow;Password=+h1sIsthenewP@ssword!";
             connection = new SqlConnection(connectionString);
-            //connection.Open();
+            connection.Open();
 
-            // Set the query up for ReceiveWord
+            // See if the user already guessed the word
+            string executeWordGuessed = string.Format("SELECT dbo.WordGuessed(1, '{0}', '{1}');", user, word);
 
-            // Run the query
+            // Execute command
+            SqlCommand db = new SqlCommand(executeWordGuessed, connection);
 
-            // Select the scores and names for each user
+            int check_result = 0;
+            check_result = (int)db.ExecuteScalar();
 
-            // Set them equal to variables
+            string executeUpdateUserScore = string.Format("EXEC sp_UpdateUserScore @gameNumber = 1, @username = '{0}', @score = '{1}', @word = '{2}' GO", user, check_result, word);
+            if (check_result > 0)
+            {
+                db = new SqlCommand(executeUpdateUserScore, connection);
+                db.ExecuteNonQuery();
+            }
+            // Pull out each users name and score
+            string getScore = "SELECT usernameOne, usernameTwo, userOneScore, userTwoScore FROM games WHERE game_code = 1";
+            db = new SqlCommand(getScore, connection);
 
-            // Close the connection
-            //connection.Close();
+            // Assign them
+            List<string> newScores = new List<string>();
+            db.CommandType = CommandType.Text;
+            using (SqlDataReader objReader = db.ExecuteReader())
+            {
+                if (objReader.HasRows)
+                {
+                    while (objReader.Read())
+                    {
+                        //I would also check for DB.Null here before reading the value.
+                        string item = objReader.GetString(objReader.GetOrdinal("usernameOne"));
+                        newScores.Add(item);
 
-            // Pretend it works
-            // Send the data from the set variables
-            await Clients.All.SendAsync("SendScores", "Fake1", "99", "Fake2", "99");
+                        item = objReader.GetString(objReader.GetOrdinal("usernameTwo"));
+                        newScores.Add(item);
+
+                        item = objReader.GetString(objReader.GetOrdinal("userOneScore"));
+                        newScores.Add(item);
+
+                        item = objReader.GetString(objReader.GetOrdinal("userTwoScore"));
+                        newScores.Add(item);
+                    }
+                }
+            }
+
+            // set them to variables
+            string user1 = newScores[0];
+            string user2 = newScores[1];
+            string score1 = newScores[2];
+            string score2 = newScores[3];
+
+            // Send them back
+            await Clients.All.SendAsync("SendScores", user1, score1, user2, score2);
         }
 
         // Get the results passed in
