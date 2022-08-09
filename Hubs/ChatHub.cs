@@ -243,8 +243,6 @@ namespace AbdulsGame.Hubs
 
             // Consider using timers between queries
 
-
-
             // Pass it in
             await Clients.All.SendAsync("SendFinalScores", "Fake1", "100", "Fake2", "101");
             List<string> test1 = new List<string>();
@@ -254,6 +252,13 @@ namespace AbdulsGame.Hubs
             test2.Add("Guess2");
             test1.Add("Guess3");
             test2.Add("Guess4");
+
+            // Send the relevant data
+            await Clients.All.SendAsync("SendWordLists", test1, test2);
+
+
+            // Compare user1 score to user2 score, send winner name
+            await Clients.All.SendAsync("SendWinner", "Fake2");
 
             // Clear the game sessions list and the word list and the score list
             string clearGames = "DELETE FROM games";
@@ -272,10 +277,6 @@ namespace AbdulsGame.Hubs
 
             // Close the connection
             connection.Close();
-
-            // Send the relevant data
-            await Clients.All.SendAsync("SendWordLists", test1, test2);
-            await Clients.All.SendAsync("SendWinner", "Fake2");
         }
         
         
