@@ -31,106 +31,124 @@ var sixteen = [11, 12, 15]
 
 makeRows(4, 4);
 
+document.getElementById("startButton").addEventListener("click", startTimer);
+document.getElementById("submit").addEventListener("click", refreshGrid);
+
 function makeRows(rows, cols) {
-  container.style.setProperty('--grid-rows', rows);
-  container.style.setProperty('--grid-cols', cols);
-  for (i = 0; i < (rows); i++) {
-    for (j = 0; j < cols; j++) {
+    container.style.setProperty('--grid-rows', rows);
+    container.style.setProperty('--grid-cols', cols);
+    for (i = 0; i < (rows); i++) {
+        for (j = 0; j < cols; j++) {
 
 
-      let cell = document.getElementById(String(id));
-      cell.innerHTML = (arr[letter]);
-
-
-
-      // cell.tagName = i + " " + j;
-
-      // container.appendChild(cell).id = "i " + i + " " + j;
-
-      cell.addEventListener('mouseover', () => {
-
-        cell.style.cursor = "pointer"
-      });
+            let cell = document.getElementById(String(id));
+            cell.innerHTML = (arr[letter]);
 
 
 
-      cell.style.width = "20%"
+            // cell.tagName = i + " " + j;
 
-      cell.addEventListener('click', () => {
+            // container.appendChild(cell).id = "i " + i + " " + j;
 
-        if (clickedID > 0) {
-          makeUnclickable()
+            cell.addEventListener('mouseover', () => {
+
+                cell.style.cursor = "pointer"
+            });
+
+
+
+            cell.style.width = "20%"
+
+            cell.addEventListener('click', () => {
+
+                if (clickedID > 0) {
+                    makeUnclickable()
+                }
+
+
+                if (cell.style.backgroundColor == "red") {
+                    cell.style.backgroundColor = "white";
+                    cell.style.color = "black";
+
+                }
+
+                else {
+
+                    cell.style.backgroundColor = "red";
+                    cell.style.color = "white";
+                    word.push(cell.innerHTML)
+                    // id = cell.id
+                    // makeUnclickable(parseInt(id[2]), parseInt(id[4]))
+
+                }
+            });
+
+            letter++
+            id++
+            cellsArr[i * 4 + j] = cell
+
         }
 
-
-        if (cell.style.backgroundColor == "red") {
-          cell.style.backgroundColor = "white";
-          cell.style.color = "black";
-
-        }
-
-        else {
-
-          cell.style.backgroundColor = "red";
-          cell.style.color = "white";
-          word.push(cell.innerHTML)
-          // id = cell.id
-          // makeUnclickable(parseInt(id[2]), parseInt(id[4]))
-
-        }
-      });
-
-      letter++
-      id++
-      cellsArr[i * 4 + j] = cell
-
-    }
-
-  };
+    };
 
 };
 
 
 function tryit() {
-  var i = 0
-  while (i < word.length) {
+    var i = 0
+    while (i < word.length) {
 
-    var p = document.getElementById("print")
-    p.innerHTML = p.innerHTML + word[i];
-    i++;
-  }
+        var p = document.getElementById("print")
+        p.innerHTML = p.innerHTML + word[i];
+        i++;
+    }
 
 }
 
 
-document.getElementById("startButton").addEventListener("click", startTimer);
+
 
 // timer to run the clock down
 function startTimer() {
 
-  document.getElementById("startButton").style.display = "none";
-  show()
+    document.getElementById("startButton").style.display = "none";
+    show()
 
-  if (timer) clearInterval(timer);
-  // Timer that counts down 
-  secsLeft = 60
-  timer = setInterval(() => {
+    if (timer) clearInterval(timer);
+    // Timer that counts down 
+    secsLeft = 60
+    timer = setInterval(() => {
 
-    secsLeft--;
-    document.getElementById("secs").textContent = "00:" + Math.floor(secsLeft);
-    if (secsLeft === 0) {
-      hide();
-      clearInterval(timer)
-      document.getElementById("secs").textContent = "00:00"
+        secsLeft--;
+        document.getElementById("secs").textContent = "00:" + Math.floor(secsLeft);
+        if (secsLeft === 0) {
+            hide();
+            clearInterval(timer)
+            document.getElementById("secs").textContent = "00:00"
 
+        }
+        else if (secsLeft <= 9) {
+            document.getElementById("secs").textContent = "00:0" + Math.floor(secsLeft);
+        }
+
+    }, 1000);
+
+
+}
+
+
+function refreshGrid() {
+
+    for (i = 1; i <= 16; i++) {
+        cell = document.getElementById(String(i))
+
+        cell.style.backgroundColor = "white";
+        cell.style.color = "black";
+        cell.style.pointerEvents = "auto";
+
+        word = []
+        clickedList = []
     }
-    else if (secsLeft <= 9) {
-      document.getElementById("secs").textContent = "00:0" + Math.floor(secsLeft);
-    }
-
-  }, 1000);
-
-
 }
 
 
@@ -138,12 +156,12 @@ function startTimer() {
 function show() {
 
 
-  var style = document.createElement("style");
-  document.head.appendChild(style);
+    var style = document.createElement("style");
+    document.head.appendChild(style);
 
-  //Add rules to the style
-  document.styleSheets[document.styleSheets.length - 1].insertRule(
-    "div#container { \
+    //Add rules to the style
+    document.styleSheets[document.styleSheets.length - 1].insertRule(
+        "div#container { \
           display: grid; \
        } ", 0);
 
@@ -152,11 +170,11 @@ function show() {
 
 function getClickID(clickID) {
 
-  clickedID = clickID
+    clickedID = clickID
 
-  console.log(clickedID)
+    console.log(clickedID)
 
-  clickedList.push(clickedID)
+    clickedList.push(clickedID)
 
 }
 
@@ -164,16 +182,16 @@ function getClickID(clickID) {
 
 function makeUnclickable() {
 
-  for (i = 0; i < 4; i++) {
-    for (j = 0; j < 4; j++) {
+    for (i = 0; i < 4; i++) {
+        for (j = 0; j < 4; j++) {
 
-      //makes everything unclickable
-      cellsArr[i * 4 + j].style.pointerEvents = "none"
+            //makes everything unclickable
+            cellsArr[i * 4 + j].style.pointerEvents = "none"
 
+        }
     }
-  }
 
-  makeClickable(clickedID)
+    makeClickable(clickedID)
 
 
 };
@@ -182,165 +200,165 @@ function makeClickable(clickedID) {
 
 
 
-  //if (i === (parseInt(clickedID) + 1) || i === (parseInt(clickedID) - 1)) {
+    //if (i === (parseInt(clickedID) + 1) || i === (parseInt(clickedID) - 1)) {
 
-  if (parseInt(clickedID) === 1) {
+    if (parseInt(clickedID) === 1) {
 
-    for (k = 0; k < one.length; k++) {
-      let cell = document.getElementById(String(one[k]));
-      cell.style.pointerEvents = "auto"
-    }
-  }
-
-  else if (parseInt(clickedID) === 2) {
-
-    for (k = 0; k < two.length; k++) {
-      let cell = document.getElementById(String(two[k]));
-      cell.style.pointerEvents = "auto"
+        for (k = 0; k < one.length; k++) {
+            let cell = document.getElementById(String(one[k]));
+            cell.style.pointerEvents = "auto"
+        }
     }
 
-  }
+    else if (parseInt(clickedID) === 2) {
 
-  else if (parseInt(clickedID) === 3) {
+        for (k = 0; k < two.length; k++) {
+            let cell = document.getElementById(String(two[k]));
+            cell.style.pointerEvents = "auto"
+        }
 
-    for (k = 0; k < three.length; k++) {
-      let cell = document.getElementById(String(three[k]));
-      cell.style.pointerEvents = "auto"
     }
 
-  }
+    else if (parseInt(clickedID) === 3) {
 
-  else if (parseInt(clickedID) === 4) {
+        for (k = 0; k < three.length; k++) {
+            let cell = document.getElementById(String(three[k]));
+            cell.style.pointerEvents = "auto"
+        }
 
-    for (k = 0; k < four.length; k++) {
-      let cell = document.getElementById(String(four[k]));
-      cell.style.pointerEvents = "auto"
     }
 
-  }
+    else if (parseInt(clickedID) === 4) {
 
-  else if (parseInt(clickedID) === 5) {
+        for (k = 0; k < four.length; k++) {
+            let cell = document.getElementById(String(four[k]));
+            cell.style.pointerEvents = "auto"
+        }
 
-    for (k = 0; k < five.length; k++) {
-      let cell = document.getElementById(String(five[k]));
-      cell.style.pointerEvents = "auto"
     }
-  }
 
-  else if (parseInt(clickedID) === 6) {
-    for (k = 0; k < six.length; k++) {
-      let cell = document.getElementById(String(six[k]));
-      cell.style.pointerEvents = "auto"
+    else if (parseInt(clickedID) === 5) {
+
+        for (k = 0; k < five.length; k++) {
+            let cell = document.getElementById(String(five[k]));
+            cell.style.pointerEvents = "auto"
+        }
     }
-  }
 
-  else if (parseInt(clickedID) === 7) {
-    for (k = 0; k < seven.length; k++) {
-      let cell = document.getElementById(String(seven[k]));
-      cell.style.pointerEvents = "auto"
+    else if (parseInt(clickedID) === 6) {
+        for (k = 0; k < six.length; k++) {
+            let cell = document.getElementById(String(six[k]));
+            cell.style.pointerEvents = "auto"
+        }
     }
-  }
 
-  else if (parseInt(clickedID) === 8) {
-    for (k = 0; k < eight.length; k++) {
-      let cell = document.getElementById(String(eight[k]));
-      cell.style.pointerEvents = "auto"
+    else if (parseInt(clickedID) === 7) {
+        for (k = 0; k < seven.length; k++) {
+            let cell = document.getElementById(String(seven[k]));
+            cell.style.pointerEvents = "auto"
+        }
     }
-  }
 
-  else if (parseInt(clickedID) === 9) {
-    for (k = 0; k < nine.length; k++) {
-      let cell = document.getElementById(String(nine[k]));
-      cell.style.pointerEvents = "auto"
+    else if (parseInt(clickedID) === 8) {
+        for (k = 0; k < eight.length; k++) {
+            let cell = document.getElementById(String(eight[k]));
+            cell.style.pointerEvents = "auto"
+        }
     }
-  }
 
-  else if (parseInt(clickedID) === 10) {
-    for (k = 0; k < ten.length; k++) {
-      let cell = document.getElementById(String(ten[k]));
-      cell.style.pointerEvents = "auto"
+    else if (parseInt(clickedID) === 9) {
+        for (k = 0; k < nine.length; k++) {
+            let cell = document.getElementById(String(nine[k]));
+            cell.style.pointerEvents = "auto"
+        }
     }
-  }
 
-  else if (parseInt(clickedID) === 11) {
-    for (k = 0; k < eleven.length; k++) {
-      let cell = document.getElementById(String(eleven[k]));
-      cell.style.pointerEvents = "auto"
+    else if (parseInt(clickedID) === 10) {
+        for (k = 0; k < ten.length; k++) {
+            let cell = document.getElementById(String(ten[k]));
+            cell.style.pointerEvents = "auto"
+        }
     }
-  }
 
-  else if (parseInt(clickedID) === 12) {
-    for (k = 0; k < twelve.length; k++) {
-      let cell = document.getElementById(String(twelve[k]));
-      cell.style.pointerEvents = "auto"
+    else if (parseInt(clickedID) === 11) {
+        for (k = 0; k < eleven.length; k++) {
+            let cell = document.getElementById(String(eleven[k]));
+            cell.style.pointerEvents = "auto"
+        }
     }
-  }
 
-  else if (parseInt(clickedID) === 13) {
-    for (k = 0; k < thir.length; k++) {
-      let cell = document.getElementById(String(thir[k]));
-      cell.style.pointerEvents = "auto"
+    else if (parseInt(clickedID) === 12) {
+        for (k = 0; k < twelve.length; k++) {
+            let cell = document.getElementById(String(twelve[k]));
+            cell.style.pointerEvents = "auto"
+        }
     }
-  }
 
-  else if (parseInt(clickedID) === 14) {
-    for (k = 0; k < forteen.length; k++) {
-      let cell = document.getElementById(String(forteen[k]));
-      cell.style.pointerEvents = "auto"
+    else if (parseInt(clickedID) === 13) {
+        for (k = 0; k < thir.length; k++) {
+            let cell = document.getElementById(String(thir[k]));
+            cell.style.pointerEvents = "auto"
+        }
     }
-  }
 
-  else if (parseInt(clickedID) === 15) {
-    for (k = 0; k < fif.length; k++) {
-      let cell = document.getElementById(String(fif[k]));
-      cell.style.pointerEvents = "auto"
+    else if (parseInt(clickedID) === 14) {
+        for (k = 0; k < forteen.length; k++) {
+            let cell = document.getElementById(String(forteen[k]));
+            cell.style.pointerEvents = "auto"
+        }
     }
-  }
 
-  else if (parseInt(clickedID) === 16) {
-    for (k = 0; k < sixteen.length; k++) {
-      let cell = document.getElementById(String(sixteen[k]));
-      cell.style.pointerEvents = "auto"
+    else if (parseInt(clickedID) === 15) {
+        for (k = 0; k < fif.length; k++) {
+            let cell = document.getElementById(String(fif[k]));
+            cell.style.pointerEvents = "auto"
+        }
     }
-  }
 
-  for (it = 0; it < clickedList.length; it++) {
+    else if (parseInt(clickedID) === 16) {
+        for (k = 0; k < sixteen.length; k++) {
+            let cell = document.getElementById(String(sixteen[k]));
+            cell.style.pointerEvents = "auto"
+        }
+    }
 
-    let cell = document.getElementById(String(clickedList[it]));
-    cell.style.pointerEvents = "none"
+    for (it = 0; it < clickedList.length; it++) {
 
-  }
+        let cell = document.getElementById(String(clickedList[it]));
+        cell.style.pointerEvents = "none"
 
-
-
-
-  // cell.addEventListener('mouseover', () => {
-
-  //   cell.style.cursor = "pointer"
-  // });
-
-  // cell.style.width = "20%"
-
-  // cell.addEventListener('click', () => {
+    }
 
 
-  //   if (cell.style.backgroundColor == "red") {
-  //     cell.style.backgroundColor = "white";
-  //     cell.style.color = "black";
 
-  //   }
 
-  //   else {
+    // cell.addEventListener('mouseover', () => {
 
-  //     cell.style.backgroundColor = "red";
-  //     cell.style.color = "white";
-  //     word.push(cell.innerHTML)
+    //   cell.style.cursor = "pointer"
+    // });
 
-  //   }
+    // cell.style.width = "20%"
 
-  //   cellsArr[i * 4 + j] = cell
-  // });
-  //}
+    // cell.addEventListener('click', () => {
+
+
+    //   if (cell.style.backgroundColor == "red") {
+    //     cell.style.backgroundColor = "white";
+    //     cell.style.color = "black";
+
+    //   }
+
+    //   else {
+
+    //     cell.style.backgroundColor = "red";
+    //     cell.style.color = "white";
+    //     word.push(cell.innerHTML)
+
+    //   }
+
+    //   cellsArr[i * 4 + j] = cell
+    // });
+    //}
 
 
 };
@@ -352,6 +370,6 @@ function makeClickable(clickedID) {
 // hide the grid
 function hide() {
 
-  document.getElementById("container").style.display = "none";
+    document.getElementById("container").style.display = "none";
 
 }
