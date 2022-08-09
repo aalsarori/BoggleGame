@@ -33,7 +33,7 @@ connection.start();
 // Customize code to send to WaitToStart, pass in the variables
 window.onload = function () {
     document.getElementById("startButton").addEventListener("click", function (event) {
-        var user = document.getElementById("userInput").value;
+        var user = "Name";
         connection.invoke("WaitToStart", user);
         event.preventDefault();
     });
