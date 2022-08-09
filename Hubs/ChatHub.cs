@@ -83,14 +83,18 @@ namespace AbdulsGame.Hubs
             connection.Open();
 
             // Create the query for getting final scores
-
-            // Create the query for getting the word lists
+            string getFinalScores = String.Format("");
 
             // Run the query for getting final scores
 
             // Set them equal to variables
 
-            // Run the query for getting word lists
+            // Get the users names
+            // Create the query for getting the word lists
+            string getWordListsUser1 = String.Format("");
+            string getWordListsUser2 = String.Format("");
+
+            // Run the query for getting the word lists
 
             // Set them equal to variables
 
