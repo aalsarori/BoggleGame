@@ -78,12 +78,12 @@ window.onload = function () {
 
     // Results Screen
     // Customize code to send to WaitToStart, pass in the variables
-    document.getElementById("otherbuttons").addEventListener("click", function (event) {
-        connection.invoke("SendResultScreen").catch(function (err) {
-            return console.error(err.toString());
-        });
-        event.preventDefault();
-    });
+    //document.getElementById("otherbuttons").addEventListener("click", function (event) {
+    //    connection.invoke("SendResultScreen").catch(function (err) {
+    //        return console.error(err.toString());
+    //    });
+    //    event.preventDefault();
+    //});
 
     // Send Final Scores Lists
     connection.on("SendFinalScores", function (user1, score1, user2, score2) {
@@ -107,9 +107,8 @@ window.onload = function () {
         document.getElementById("winner").innerHTML = winner
     });
 
-
-    //recive the letters for grid
     connection.on("GameBoard", function (arr) {
+        console.log("worked!");
 
         for (i = 0; i < arr.length; i++) {
 
