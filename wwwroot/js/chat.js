@@ -46,8 +46,8 @@ window.onload = function () {
         score1 = 0;
         //grab users and their scores and insert them into the html display <p> designated for them
         document.getElementById("user1").innerHTML = "User: " + user1;
-        document.getElementById("user2").innerHTML = "Userasdf: " + user2;
-        document.getElementById("score1").innerHTML = "Score afds: " + score1;
+        document.getElementById("user2").innerHTML = "User: " + user2;
+        document.getElementById("score1").innerHTML = "Score: " + score1;
         document.getElementById("score2").innerHTML = "Score : " + score2;
     });
 
