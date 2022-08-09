@@ -37,7 +37,7 @@ window.onload = function () {
         console.log(user); // prints the user to the console for testing purposes
         connection.invoke("WaitToStart", user);
         event.preventDefault();
-        
+
     });
 
 
@@ -59,7 +59,7 @@ window.onload = function () {
 
     // Receive Word
     // Customize code to send to WaitToStart, pass in the variables
-    
+
     document.getElementById("submit").addEventListener("click", function (event) {
         var user = "FakeUser"; // the user they enter will  go here
         var word = "Word"; // send each word they submit
@@ -111,5 +111,16 @@ window.onload = function () {
     //recive the letters for grid
     connection.on("GameBoard", function (arr) {
 
+        for (i = 0; i < arr.length; i++) {
+
+            var letter = 1;
+            cell = document.getElementById(String(letter));
+
+            cell.innerHTML = arr[i]
+
+            letter++;
+
+            console.log(arr[i])
+        }
     });
 }
