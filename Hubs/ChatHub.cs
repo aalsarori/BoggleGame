@@ -23,33 +23,106 @@ namespace AbdulsGame.Hubs
             // Start the connection
             string connectionString = "Server=titan.cs.weber.edu, 10433;Database=AmandaShow;User ID=AmandaShow;Password=+h1sIsthenewP@ssword!";
             connection = new SqlConnection(connectionString);
-            //connection.Open();
+            connection.Open();
 
-            // Add the user to the game session
+            // Insert player name into the session table
+            string insert = string.Format("INSERT INTO game_session (Game_Code,Player) VALUES (1,'{0}');", user);
+
+            // Run the query
+            SqlCommand db = new SqlCommand(insert, connection);
+            db.ExecuteNonQuery();
 
             // Get a count of players in the game session
+            string check = string.Format("SELECT COUNT(*) FROM game_session WHERE Game_Code = 1;");
+            int check_result = 0;
+
+            // Get result of query
+            db = new SqlCommand(check, connection);
+            check_result = (int)db.ExecuteScalar();
 
             // If the count is less than 2, send Waiting Message
+            if(check_result < 2)
+            {
+                // Display waiting message?
+            }
+            else
+            {
+                // Build query
+                string getplayers = "SELECT Player FROM game_session WHERE Game_Code = 1 ORDER BY Player ASC";
 
-            // If the count is greater or equal to 2, get the scores
+                // Create a list to store values to
+                List<string> newPlayers = new List<string>();
 
-            // Then get the gameboard
+                // Run the query
+                db = new SqlCommand(getplayers, connection);
+                db.CommandType = CommandType.Text;
+                using (SqlDataReader objReader = db.ExecuteReader())
+                {
+                    if (objReader.HasRows)
+                    {
+                        while (objReader.Read())
+                        {
+                            //I would also check for DB.Null here before reading the value.
+                            string item = objReader.GetString(objReader.GetOrdinal("Player"));
+                            newPlayers.Add(item);
+                        }
+                    }
+                }
 
-            // Then pass them both in
+                // Make the loop variables
+                string player_one = newPlayers[0];
+                string player_two = newPlayers[1];
 
-            //await Clients.All.SendAsync("WaitingMessage");
+                // Make a for loop that sets the first to player_one and the second to player two
 
+                // Insert player name into player table, set score = 0.
+                string setplayers = string.Format("INSERT INTO games (usernameOne,usernameTwo,gamecode) VALUES ('{0}','{1}', 1);", player_one, player_two);
 
+                // Run the query
+                db = new SqlCommand(setplayers, connection);
+                db.ExecuteNonQuery();
 
-            // Pretend it already works
-            await Clients.All.SendAsync("SendInitialScores", "Fake1", "0", "Fake2", "0");
+                // Pass in initial names ands scores by drawing from database and passing them in
+                string getinitialnamesandscores = "SELECT usernameOne, usernameTwo FROM games WHERE gamecode = 1";
 
-            List<char> arr = new List<char>();
-            arr = wordsRemix;
-            await Clients.All.SendAsync("GameBoard", arr);            
-            
+                // Create a list to store values to
+                List<string> newScores = new List<string>();
+
+                // Run the query
+                db = new SqlCommand(getinitialnamesandscores, connection);
+                db.CommandType = CommandType.Text;
+                using (SqlDataReader objReader = db.ExecuteReader())
+                {
+                    if (objReader.HasRows)
+                    {
+                        while (objReader.Read())
+                        {
+                            //I would also check for DB.Null here before reading the value.
+                            string item = objReader.GetString(objReader.GetOrdinal("usernameOne"));
+                            newScores.Add(item);
+
+                            string otheritem = objReader.GetString(objReader.GetOrdinal("usernameTwo"));
+                            newScores.Add(otheritem);
+                        }
+                    }
+                }
+
+                // Set them equal to the variables
+                string user1 = newScores[0];
+                string user2 = newScores[1];
+                string score1 = 0.ToString();
+                string score2 = 0.ToString();
+
+                await Clients.All.SendAsync("SendInitialScores", user1, score1, user2, score2);
+
+                // Make and send the array
+                List<char> arr = new List<char>();
+                arr = wordsRemix;
+                await Clients.All.SendAsync("GameBoard", arr);
+            }
+
             // Close the connection
-            //connection.Close();
+            connection.Close();
         }
 
         // Get the points to update
