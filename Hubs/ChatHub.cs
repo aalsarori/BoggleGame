@@ -25,13 +25,13 @@ namespace AbdulsGame.Hubs
             connection = new SqlConnection(connectionString);
             connection.Open();
 
+            
             // Insert player name into the session table
             string insert = string.Format("INSERT INTO game_session (Game_Code,Player) VALUES (1,'{0}');", user);
 
             // Run the query
             SqlCommand db = new SqlCommand(insert, connection);
             db.ExecuteNonQuery();
-
 
             // Check if count where gamecode = gamecode of game session >= 2.
             string check = string.Format("SELECT COUNT(*) FROM game_session WHERE Game_Code = 1;");
