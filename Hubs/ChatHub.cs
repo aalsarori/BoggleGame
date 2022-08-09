@@ -20,6 +20,8 @@ namespace AbdulsGame.Hubs
         // Get the game to start
         public async Task WaitToStart(string user)
         {
+            // Start the connection
+
             // Add the user to the game session
             
             // Get a count of players in the game session
@@ -34,6 +36,8 @@ namespace AbdulsGame.Hubs
 
             //await Clients.All.SendAsync("WaitingMessage");
             
+            // Close the connection
+
             // Pretend it already works
             await Clients.All.SendAsync("SendInitialScores", "Fake1", "0", "Fake2", "0");
 
