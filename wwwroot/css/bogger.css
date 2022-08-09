@@ -63,7 +63,7 @@ p {
 }
 
 #startButton {
-    position: flex;
+    position: absolute;
 }
 
 #secs {
