@@ -107,7 +107,7 @@ window.onload = function () {
 
 
     //recive the letters for grid
-    connection.on("GameBoard", function (arr)) {
+    connection.on("GameBoard", function (arr) {
 
     });
 }

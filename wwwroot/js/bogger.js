@@ -33,6 +33,15 @@ makeRows(4, 4);
 
 document.getElementById("startButton").addEventListener("click", startTimer);
 document.getElementById("submit").addEventListener("click", refreshGrid);
+document.getElementById("submitUser").addEventListener("click", showStart);
+
+function showStart() {
+    document.getElementById("startButton").style.display = "block";
+    document.getElementById("enterUsername").style.display = "none";
+    document.getElementById("enterUsername1").style.display = "none";
+        
+}
+
 
 function makeRows(rows, cols) {
     container.style.setProperty('--grid-rows', rows);

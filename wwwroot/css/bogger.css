@@ -3,6 +3,11 @@
     --grid-rows: 1;
 }
 
+#enterUsername {
+
+    padding-top:3em;
+}
+
 #container {
     width: 50%;
     padding: 1em;
@@ -12,6 +17,8 @@
     grid-template-rows: repeat(var(--grid-rows), 0.1fr);
     grid-template-columns: repeat(var(--grid-cols), 0.01fr);
 }
+
+
 
     /* .grid-item1 {
 padding: 1em;
@@ -26,11 +33,11 @@ text-align: center;
   text-align: center;
 } */
 
-    #container div {
-        padding: 1em;
-        border: 1px solid #ddd;
-        text-align: center;
-    }
+#container div {
+    padding: 1em;
+    border: 1px solid #ddd;
+    text-align: center;
+}
 
 
 #submit {
@@ -69,7 +76,7 @@ p {
 }
 
 #startButton {
-    position: flex;
+    display: none;
 }
 
 #secs {
