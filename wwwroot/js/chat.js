@@ -7,9 +7,7 @@ connection.start();
 window.onload = function () {
     document.getElementById("startButton").addEventListener("click", function (event) {
         var user = "asdf";
-        connection.invoke("WaitToStart", user).catch(function (err) {
-
-        });
+        connection.invoke("WaitToStart", user);
         event.preventDefault();
     });
 
