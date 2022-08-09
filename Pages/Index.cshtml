@@ -7,8 +7,13 @@
     <title>Boggle</title>
     <link rel="stylesheet" type="text/css" href="~/css/bogger.css">
     <script src="~/js/signalr/dist/browser/signalr.js"></script>
+    <script type="text/javascript" defer src="~/js/chat.js"></script>
+    <script type="text/javascript" defer src="~/js/bogger.js"></script>
+</head>
+
     <script src="~/js/chat.js"></script>
     <script type="text/javascript" defer src="~/js/bogger.js"></script>
+
 
 </head>
 
@@ -43,6 +48,11 @@
 
     <div id="button">
         <input type="submit" id="submit" onclick="tryit()">
+    </div>
+
+    <div>
+        <input type="text" id="userInput" />
+        <input type="submit" id="sendButton" />
     </div>
 
     <p id="print"></p>

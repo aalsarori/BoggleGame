@@ -1,6 +1,6 @@
 const container = document.getElementById("container");
 
-var arrLetters = ['a', 'k', 'h', 'b', 'd', 'q', 'p', 'c', 'd', 'a', 'l', 'g', 'h', 'v', 'm', 't'];
+var arr = ['a', 'k', 'h', 'b', 'd', 'q', 'p', 'c', 'd', 'a', 'l', 'g', 'h', 'v', 'm', 't'];
 var cellsArr = [16]
 var word = []
 var secsLeft
@@ -8,17 +8,6 @@ var timer = null
 var timeStarted = false
 var letter = 0
 var id
-
-
-// Game Table
-/*connection.on("GameBoard", function (arr) {
-    // Abduls code
-
-    for (i = 0; i < 16; i++) {
-        arrLetters[i] = arr[i]
-    }
-});
-*/
 
 
 function makeRows(rows, cols) {
@@ -29,7 +18,7 @@ function makeRows(rows, cols) {
 
 
             let cell = document.createElement("div");
-            cell.innerText = (arrLetters[letter]);
+            cell.innerText = (arr[letter]);
 
 
 
@@ -63,6 +52,7 @@ function makeRows(rows, cols) {
                     cell.style.color = "white";
                     word.push(cell.innerText)
                     id = cell.id
+                    makeUnclickable(parseInt(id[2]), parseInt(id[4]))
 
                 }
             });
@@ -80,18 +70,20 @@ function makeRows(rows, cols) {
 
 };
 makeRows(4, 4);
-makeUnclickable(1, 0)
+
+
+
 
 
 
 function tryit() {
-  var i = 0
-  while (i < word.length) {
+    var i = 0
+    while (i < word.length) {
 
-    var p = document.getElementById("print")
-    p.innerHTML = p.innerHTML + word[i];
-    i++;
-  }
+        var p = document.getElementById("print")
+        p.innerHTML = p.innerHTML + word[i];
+        i++;
+    }
 
 }
 
@@ -104,24 +96,24 @@ function startTimer() {
     document.getElementById("startButton").style.display = "none";
     show()
 
-  if (timer) clearInterval(timer);
-  // Timer that counts down 
-  secsLeft = 60
-  timer = setInterval(() => {
+    if (timer) clearInterval(timer);
+    // Timer that counts down 
+    secsLeft = 60
+    timer = setInterval(() => {
 
-    secsLeft--;
-    document.getElementById("secs").textContent = "00:" + Math.floor(secsLeft);
-      if (secsLeft === 0) {
-          hide();
-      clearInterval(timer)
-      document.getElementById("secs").textContent = "00:00"
-      
-    }
-    else if (secsLeft <= 9) {
-      document.getElementById("secs").textContent = "00:0" + Math.floor(secsLeft);
-    }
+        secsLeft--;
+        document.getElementById("secs").textContent = "00:" + Math.floor(secsLeft);
+        if (secsLeft === 0) {
+            hide();
+            clearInterval(timer)
+            document.getElementById("secs").textContent = "00:00"
 
-  }, 1000);
+        }
+        else if (secsLeft <= 9) {
+            document.getElementById("secs").textContent = "00:0" + Math.floor(secsLeft);
+        }
+
+    }, 1000);
 
 
 }
@@ -142,16 +134,44 @@ function show() {
 }
 
 
-function makeUnclickable(i, j) {
+function makeUnclickable(r, c) {
 
-    cellsArr[i * 4 + j].replaceWith(cellsArr[i * 4 + j].cloneNode(true));
+    for (i = 0; i < 4; i++) {
+        for (j = 0; j < 4; j++) {
+
+
+            if (i == r && j == c) {
+                continue
+            }
+            cellsArr[i * 4 + j].replaceWith(cellsArr[i * 4 + j].cloneNode(true));
+
+            // if the clicked grid is 0 0
+
+        }
+    }
+    if ((r == 1 && c == 1)) {
+        // makeClickable(parseInt(r + 1), parseInt(c + 1))
+        // makeClickable(parseInt(r + 1), parseInt(c))
+        // makeClickable(parseInt(r), parseInt(c + 1))
+        // makeClickable(3, 3)
+        makeClickable(2, 0)
+        makeClickable(2, 1)
+
+    }
+
+
 
 };
 
-function makeClickable(i, j) {
+function makeClickable(k, w) {
 
-    var id = "i " + i + " " + j;
-    cell = document.getElementById(id)
+
+
+
+    var getID = "i " + k + " " + w;
+    cell = document.getElementById(getID)
+
+    // cellsArr[k * 4 + w] = cell
 
     cell.addEventListener('mouseover', () => {
 
@@ -160,6 +180,7 @@ function makeClickable(i, j) {
 
     cell.addEventListener('click', () => {
 
+        document.getElementById('testing').innerHTML = cell.id
 
         if (cell.style.backgroundColor == "red") {
             cell.style.backgroundColor = "white";
@@ -175,6 +196,8 @@ function makeClickable(i, j) {
 
         }
     });
+
+    //cellsArr[k * 4 + w].replaceWith(cell.cloneNode(true));
 
 }
 
