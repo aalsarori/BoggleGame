@@ -90,15 +90,41 @@ namespace AbdulsGame.Hubs
             db.CommandType = CommandType.Text;
 
             // Loop through and set them equal to variables
+            List<string> newScores = new List<string>();
+
+            using (SqlDataReader objReader = db.ExecuteReader())
+            {
+                if (objReader.HasRows)
+                {
+                    while (objReader.Read())
+                    {
+                        //I would also check for DB.Null here before reading the value.
+                        string item = objReader.GetString(objReader.GetOrdinal("usernameOne"));
+                        newScores.Add(item);
+
+                        item = objReader.GetString(objReader.GetOrdinal("usernameTwo"));
+                        newScores.Add(item);
+
+                        item = objReader.GetString(objReader.GetOrdinal("userOneScore"));
+                        newScores.Add(item);
+
+                        item = objReader.GetString(objReader.GetOrdinal("userTwoScore"));
+                        newScores.Add(item);
+                    }
+                }
+            }
 
             // Get the users names
+            string user1 = newScores[0];
+            string user2 = newScores[1];
+
             // Create the query for getting the word lists
-            string getWordListsUser1 = String.Format("");
-            string getWordListsUser2 = String.Format("");
+            string getWordListsUser1 = String.Format("", user1);
+            string getWordListsUser2 = String.Format("", user2);
 
             // Run the query for getting the word lists
 
-            // Set them equal to variables
+            // Loop through setting them equal to variables
 
             // Find the winner based on the score, and set it equal to a variable
 
