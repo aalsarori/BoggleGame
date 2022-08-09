@@ -34,9 +34,7 @@ connection.start();
 window.onload = function () {
     document.getElementById("sendButton").addEventListener("click", function (event) {
         var user = document.getElementById("userInput").value;
-        connection.invoke("WaitToStart", user).catch(function (err) {
-            return console.error(err.toString());
-        });
+        connection.invoke("WaitToStart", user);
         event.preventDefault();
     });
 }
