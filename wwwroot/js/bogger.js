@@ -33,6 +33,15 @@ makeRows(4, 4);
 
 document.getElementById("startButton").addEventListener("click", startTimer);
 document.getElementById("submit").addEventListener("click", refreshGrid);
+document.getElementById("submitUser").addEventListener("click", showStart);
+
+function showStart() {
+    document.getElementById("startButton").style.display = "block";
+    document.getElementById("enterUsername").style.display = "none";
+    document.getElementById("enterUsername1").style.display = "none";
+        
+}
+
 
 function makeRows(rows, cols) {
     container.style.setProperty('--grid-rows', rows);
@@ -44,11 +53,6 @@ function makeRows(rows, cols) {
             let cell = document.getElementById(String(id));
             cell.innerHTML = (arr[letter]);
 
-
-
-            // cell.tagName = i + " " + j;
-
-            // container.appendChild(cell).id = "i " + i + " " + j;
 
             cell.addEventListener('mouseover', () => {
 
@@ -77,8 +81,6 @@ function makeRows(rows, cols) {
                     cell.style.backgroundColor = "red";
                     cell.style.color = "white";
                     word.push(cell.innerHTML)
-                    // id = cell.id
-                    // makeUnclickable(parseInt(id[2]), parseInt(id[4]))
 
                 }
             });
@@ -197,10 +199,6 @@ function makeUnclickable() {
 };
 
 function makeClickable(clickedID) {
-
-
-
-    //if (i === (parseInt(clickedID) + 1) || i === (parseInt(clickedID) - 1)) {
 
     if (parseInt(clickedID) === 1) {
 
@@ -329,42 +327,7 @@ function makeClickable(clickedID) {
 
     }
 
-
-
-
-    // cell.addEventListener('mouseover', () => {
-
-    //   cell.style.cursor = "pointer"
-    // });
-
-    // cell.style.width = "20%"
-
-    // cell.addEventListener('click', () => {
-
-
-    //   if (cell.style.backgroundColor == "red") {
-    //     cell.style.backgroundColor = "white";
-    //     cell.style.color = "black";
-
-    //   }
-
-    //   else {
-
-    //     cell.style.backgroundColor = "red";
-    //     cell.style.color = "white";
-    //     word.push(cell.innerHTML)
-
-    //   }
-
-    //   cellsArr[i * 4 + j] = cell
-    // });
-    //}
-
-
 };
-
-
-
 
 
 // hide the grid

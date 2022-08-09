@@ -33,7 +33,7 @@ connection.start();
 // Customize code to send to WaitToStart, pass in the variables
 window.onload = function () {
     document.getElementById("startButton").addEventListener("click", function (event) {
-        var user = "Name";
+        var user = "Name"; // username they enter goes there as well
         connection.invoke("WaitToStart", user);
         event.preventDefault();
     });
@@ -43,7 +43,6 @@ window.onload = function () {
     connection.on("SendInitialScores", function (user1, score1, user2, score2) {
         // Abduls code
 
-        score1 = 0;
         //grab users and their scores and insert them into the html display <p> designated for them
         document.getElementById("user1").innerHTML = "User: " + user1;
         document.getElementById("user2").innerHTML = "User: " + user2;
@@ -58,9 +57,11 @@ window.onload = function () {
 
     // Receive Word
     // Customize code to send to WaitToStart, pass in the variables
+    
     document.getElementById("submit").addEventListener("click", function (event) {
-        var user = "FakeUser";
-        var word = "Word";
+        var user = "FakeUser"; // the user they enter will  go here
+        var word = "Word"; // send each word they submit
+        //check the word the user is sending
         connection.invoke("ReceiveWord", user, word);
     });
 
@@ -86,7 +87,6 @@ window.onload = function () {
     connection.on("SendFinalScores", function (user1, score1, user2, score2) {
         // Abduls code
 
-        score1 = 0;
         document.getElementById("user1").innerHTML = "User: " + user1;
         document.getElementById("user2").innerHTML = "User: " + user2;
         document.getElementById("score1").innerHTML = "Final Score : " + score1;
@@ -103,5 +103,11 @@ window.onload = function () {
         // Abduls code
 
         document.getElementById("winner").innerHTML = winner
+    });
+
+
+    //recive the letters for grid
+    connection.on("GameBoard", function (arr) {
+
     });
 }
