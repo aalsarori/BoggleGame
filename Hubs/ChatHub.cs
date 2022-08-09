@@ -20,6 +20,18 @@ namespace AbdulsGame.Hubs
         // Get the game to start
         public async Task WaitToStart(string user)
         {
+            // Add the user to the game session
+            
+            // Get a count of players in the game session
+
+            // If the count is less than 2, send Waiting Message
+
+            // If the count is greater or equal to 2, get the scores
+
+            // Then get the gameboard
+
+            // Then pass them both in
+
             //await Clients.All.SendAsync("WaitingMessage");
             
             // Pretend it already works
@@ -34,12 +46,46 @@ namespace AbdulsGame.Hubs
         public async Task ReceiveWord(string user, string word)
         {
             // Pretend it works
+            
+            // Set the connection
+
+            // Set the query up for ReceiveWord
+
+            // Run the query
+
+            // Select the scores and names for each user
+
+            // Set them equal to variables
+
+            // Close the connection
+
+            // Send the data from the set variables
             await Clients.All.SendAsync("SendScores", "Fake1", "99", "Fake2", "99");
         }
 
         // Get the results passed in
         public async Task SendResultScreen()
         {
+            // Open the connection
+
+            // Create the query for getting final scores
+
+            // Create the query for getting the word lists
+
+            // Run the query for getting final scores
+
+            // Set them equal to variables
+
+            // Run the query for getting word lists
+
+            // Set them equal to variables
+
+            // Find the winner based on the score, and set it equal to a variable
+
+            // Consider using timers between queries
+
+            // Clear the game sessions list and the word list and the score list
+
             // Pass it in
             await Clients.All.SendAsync("SendFinalScores", "Fake1", "100", "Fake2", "101");
             List<string> test1 = new List<string>();
@@ -50,6 +96,9 @@ namespace AbdulsGame.Hubs
             test1.Add("Guess3");
             test2.Add("Guess4");
 
+            // Close the connection
+
+            // Send the relevant data
             await Clients.All.SendAsync("SendWordLists", test1, test2);
             await Clients.All.SendAsync("SendWinner", "Fake2");
         }
