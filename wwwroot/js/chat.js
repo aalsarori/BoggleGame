@@ -58,19 +58,15 @@ window.onload = function () {
 
     // Receive Word
     // Customize code to send to WaitToStart, pass in the variables
-    document.getElementById("otherbutton").addEventListener("click", function (event) {
-        var user = document.getElementById("userInput").value;
-        var message = document.getElementById("messageInput").value;
-        connection.invoke("ReceiveWord", user, message).catch(function (err) {
-            return console.error(err.toString());
-        });
-        event.preventDefault();
+    document.getElementById("submit").addEventListener("click", function (event) {
+        var user = "FakeUser";
+        var word = "Word";
+        connection.invoke("ReceiveWord", user, word);
     });
 
     // Send Scores
     connection.on("SendScores", function (user1, score1, user2, score2) {
         // Abduls code
-        score1 = 0;
         document.getElementById("user1").innerHTML = "User: " + user1;
         document.getElementById("user2").innerHTML = "User: " + user2;
         document.getElementById("score1").innerHTML = "Score : " + score1;
