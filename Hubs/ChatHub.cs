@@ -21,9 +21,12 @@ namespace AbdulsGame.Hubs
         public async Task WaitToStart(string user)
         {
             // Start the connection
+            string connectionString = "Server=titan.cs.weber.edu, 10433;Database=AmandaShow;User ID=AmandaShow;Password=+h1sIsthenewP@ssword!";
+            connection = new SqlConnection(connectionString);
+            connection.Open();
 
             // Add the user to the game session
-            
+
             // Get a count of players in the game session
 
             // If the count is less than 2, send Waiting Message
@@ -35,8 +38,9 @@ namespace AbdulsGame.Hubs
             // Then pass them both in
 
             //await Clients.All.SendAsync("WaitingMessage");
-            
+
             // Close the connection
+            connection.Close();
 
             // Pretend it already works
             await Clients.All.SendAsync("SendInitialScores", "Fake1", "0", "Fake2", "0");
@@ -49,9 +53,10 @@ namespace AbdulsGame.Hubs
         // Get the points to update
         public async Task ReceiveWord(string user, string word)
         {
-            // Pretend it works
-            
-            // Set the connection
+            // Open the connection
+            string connectionString = "Server=titan.cs.weber.edu, 10433;Database=AmandaShow;User ID=AmandaShow;Password=+h1sIsthenewP@ssword!";
+            connection = new SqlConnection(connectionString);
+            connection.Open();
 
             // Set the query up for ReceiveWord
 
@@ -62,7 +67,9 @@ namespace AbdulsGame.Hubs
             // Set them equal to variables
 
             // Close the connection
+            connection.Close();
 
+            // Pretend it works
             // Send the data from the set variables
             await Clients.All.SendAsync("SendScores", "Fake1", "99", "Fake2", "99");
         }
@@ -71,6 +78,9 @@ namespace AbdulsGame.Hubs
         public async Task SendResultScreen()
         {
             // Open the connection
+            string connectionString = "Server=titan.cs.weber.edu, 10433;Database=AmandaShow;User ID=AmandaShow;Password=+h1sIsthenewP@ssword!";
+            connection = new SqlConnection(connectionString);
+            connection.Open();
 
             // Create the query for getting final scores
 
@@ -101,6 +111,7 @@ namespace AbdulsGame.Hubs
             test2.Add("Guess4");
 
             // Close the connection
+            connection.Close();
 
             // Send the relevant data
             await Clients.All.SendAsync("SendWordLists", test1, test2);
