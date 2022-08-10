@@ -219,45 +219,45 @@ namespace AbdulsGame.Hubs
             connection = new SqlConnection(connectionString);
             connection.Open();
 
-            // Create the query for getting final scores
-            string getFinalScores = String.Format("");
+            //// Create the query for getting final scores
+            //string getFinalScores = String.Format("");
 
-            // Run the query for getting final scores
-            SqlCommand db = new SqlCommand(getFinalScores, connection);
-            db.CommandType = CommandType.Text;
+            //// Run the query for getting final scores
+            //SqlCommand db = new SqlCommand(getFinalScores, connection);
+            //db.CommandType = CommandType.Text;
 
-            // Loop through and set them equal to variables
-            List<string> newScores = new List<string>();
+            //// Loop through and set them equal to variables
+            //List<string> newScores = new List<string>();
 
-            using (SqlDataReader objReader = db.ExecuteReader())
-            {
-                if (objReader.HasRows)
-                {
-                    while (objReader.Read())
-                    {
-                        //I would also check for DB.Null here before reading the value.
-                        string item = objReader.GetString(objReader.GetOrdinal("usernameOne"));
-                        newScores.Add(item);
+            //using (SqlDataReader objReader = db.ExecuteReader())
+            //{
+            //    if (objReader.HasRows)
+            //    {
+            //        while (objReader.Read())
+            //        {
+            //            //I would also check for DB.Null here before reading the value.
+            //            string item = objReader.GetString(objReader.GetOrdinal("usernameOne"));
+            //            newScores.Add(item);
 
-                        item = objReader.GetString(objReader.GetOrdinal("usernameTwo")); // If this is wrong, may need to call names individually and then score individually
-                        newScores.Add(item);
+            //            item = objReader.GetString(objReader.GetOrdinal("usernameTwo")); // If this is wrong, may need to call names individually and then score individually
+            //            newScores.Add(item);
 
-                        item = objReader.GetString(objReader.GetOrdinal("userOneScore")); // may need to query individually, may just make a function for this at this point
-                        newScores.Add(item);
+            //            item = objReader.GetString(objReader.GetOrdinal("userOneScore")); // may need to query individually, may just make a function for this at this point
+            //            newScores.Add(item);
 
-                        item = objReader.GetString(objReader.GetOrdinal("userTwoScore")); // may need to query individually, may just make a function for this at this point
-                        newScores.Add(item);
-                    }
-                }
-            }
+            //            item = objReader.GetString(objReader.GetOrdinal("userTwoScore")); // may need to query individually, may just make a function for this at this point
+            //            newScores.Add(item);
+            //        }
+            //    }
+            //}
 
-            // Get the users names
-            string user1 = newScores[0];
-            string user2 = newScores[1];
+            //// Get the users names
+            //string user1 = newScores[0];
+            //string user2 = newScores[1];
 
-            // Create the query for getting the word lists
-            string getWordListsUser1 = String.Format("", user1);
-            string getWordListsUser2 = String.Format("", user2);
+            //// Create the query for getting the word lists
+            //string getWordListsUser1 = String.Format("", user1);
+            //string getWordListsUser2 = String.Format("", user2);
 
             // Run the query for getting the word lists
 
@@ -290,7 +290,7 @@ namespace AbdulsGame.Hubs
             string clearWords = "DELETE FROM guesses";
 
             // Run the queries
-            db = new SqlCommand(clearGames, connection);
+            SqlCommand db = new SqlCommand(clearGames, connection);
             db.ExecuteNonQuery();
 
             db = new SqlCommand(clearGameSessions, connection);
