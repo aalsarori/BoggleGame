@@ -143,7 +143,7 @@ function startTimer() {
 
 
 function refreshGrid() {
-
+    //YO
     var p = document.getElementById("print")
     p.innerHTML = "";
     for (i = 1; i <= 16; i++) {
