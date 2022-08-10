@@ -284,6 +284,7 @@ namespace AbdulsGame.Hubs
             // Compare user1 score to user2 score, send winner name
             await Clients.All.SendAsync("SendWinner", "Fake2");
 
+
             // Clear the game sessions list and the word list and the score list
             string clearGames = "DELETE FROM games";
             string clearGameSessions = "DELETE FROM game_session";
