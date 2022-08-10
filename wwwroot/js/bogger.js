@@ -39,7 +39,7 @@ function showStart() {
     document.getElementById("startButton").style.display = "block";
     document.getElementById("enterUsername").style.display = "none";
     document.getElementById("enterUsername1").style.display = "none";
-        
+
 }
 
 
@@ -97,10 +97,13 @@ function makeRows(rows, cols) {
 
 
 function tryit() {
+    var p = document.getElementById("print")
+    p.innerHTML = " ";
     var i = 0
     while (i < word.length) {
 
-        var p = document.getElementById("print")
+
+        p = document.getElementById("print")
         p.innerHTML = p.innerHTML + word[i];
         i++;
     }
@@ -141,12 +144,15 @@ function startTimer() {
 
 function refreshGrid() {
 
+    var p = document.getElementById("print")
+    p.innerHTML = "";
     for (i = 1; i <= 16; i++) {
         cell = document.getElementById(String(i))
 
         cell.style.backgroundColor = "white";
         cell.style.color = "black";
         cell.style.pointerEvents = "auto";
+
 
         word = []
         clickedList = []
