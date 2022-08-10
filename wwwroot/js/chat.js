@@ -105,6 +105,8 @@ window.onload = function () {
         //YOOOOOOOOOOOOOOO
         console.log(user1words);
         console.log(user2words); // both lines are just for testing
+        console.log("I exist!!!");
+        //Dennissss
     });
 
     // Send Winner
