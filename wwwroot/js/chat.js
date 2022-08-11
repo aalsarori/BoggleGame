@@ -98,6 +98,11 @@ window.onload = function () {
         document.getElementById("score2").innerHTML = "Final Score : " + score2;
     });
 
+
+    connection.on("SendResultScreen", function () {
+
+    });
+
     // Send Words Lists
     connection.on("SendWordLists", function (user1words, user2words) {
 
@@ -107,6 +112,34 @@ window.onload = function () {
         console.log(user2words); // both lines are just for testing
         console.log("I exist!!!");
         //Dennissss
+
+        //prototype for how to display the words guessed by both users
+
+/*        var p = document.getElementById('finalScores1')
+        var p2 = document.getElementById('finalScores2')
+
+        for (i = 0; i < user1words.length; i++) {
+
+            if (i === 0) {
+                p.innerHTML = user1words[i] + '<br>'
+
+            }
+            else {
+                p.innerHTML = p.innerHTML + user1words[i] + '<br>'
+
+            }
+        }
+
+
+        for (i = 0; i < user2words.length; i++) {
+
+            if (i === 0) {
+                p2.innerHTML = user2words[i] + '<br>'
+            }
+            else {
+                p2.innerHTML = p2.innerHTML + user2words[i] + '<br>'
+            }
+        }*/
     });
 
     // Send Winner
@@ -119,11 +152,12 @@ window.onload = function () {
     connection.on("GameBoard", function (arr) {
 
         for (i = 0; i < arr.length; i++) {
- 
+
             var num = i + 1
             var c = document.getElementById(String(num));
             c.innerHTML = arr[i]
 
         }
     });
+
 }
