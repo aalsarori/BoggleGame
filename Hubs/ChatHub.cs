@@ -168,7 +168,7 @@ namespace AbdulsGame.Hubs
             Int16 check_result = 0;
             check_result = (Int16)db.ExecuteScalar();
 
-            string executeUpdateUserScore = string.Format("EXEC sp_UpdateUserScore @gameNumber = 1, @username = '{0}', @score = '{1}', @word = '{2}' GO", user, check_result, word);
+            string executeUpdateUserScore = string.Format("EXEC sp_UpdateUserScore @gameNumber = 1, @username = '{0}', @score = {1}, @word = '{2}' ", user, check_result, word);
             if (check_result > 0)
             {
                 db = new SqlCommand(executeUpdateUserScore, connection);
@@ -194,12 +194,6 @@ namespace AbdulsGame.Hubs
 
                         item = objReader.GetString(objReader.GetOrdinal("usernameTwo"));
                         newScores.Add(item);
-
-                        item = objReader.GetString(objReader.GetInt16("userOneScore")).ToString(); // doesn't want to work, maybe query individually after you have the names
-                        newScores.Add(item);
-
-                        item = objReader.GetString(objReader.GetInt16("userTwoScore")).ToString(); // doesn't want to work, maybe query individually after you have the names
-                        newScores.Add(item);
                     }
                 }
             }
@@ -207,8 +201,25 @@ namespace AbdulsGame.Hubs
             // set them to variables
             string user1 = newScores[0];
             string user2 = newScores[1];
-            string score1 = newScores[2];
-            string score2 = newScores[3];
+
+            string useronescore = string.Format("SELECT userOneScore FROM games WHERE usernameOne = '{0}'", user1);
+
+            // Execute command
+            db = new SqlCommand(useronescore, connection);
+
+            Int16 userones = 0;
+            userones = (Int16)db.ExecuteScalar();
+
+            string usertwoscore = string.Format("SELECT userOneScore FROM games WHERE usernameOne = '{0}'", user1);
+
+            // Execute command
+            db = new SqlCommand(usertwoscore, connection);
+
+            Int16 usertwos = 0;
+            usertwos = (Int16)db.ExecuteScalar();
+
+            string score1 = userones.ToString();
+            string score2 = usertwos.ToString();
 
             // Send them back
             await Clients.All.SendAsync("SendScores", user1, score1, user2, score2);
