@@ -100,7 +100,13 @@ window.onload = function () {
 
     // Send Words Lists
     connection.on("SendWordLists", function (user1words, user2words) {
+
         // Abduls code
+        //YOOOOOOOOOOOOOOO
+        console.log(user1words);
+        console.log(user2words); // both lines are just for testing
+        console.log("I exist!!!");
+        //Dennissss
     });
 
     // Send Winner

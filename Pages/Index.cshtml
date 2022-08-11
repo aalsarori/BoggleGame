@@ -5,6 +5,7 @@
 
 <head>
     <title>Boggle</title>
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="~/css/bogger.css">
     <script src="~/js/signalr/dist/browser/signalr.js"></script>
     <script src="~/js/chat.js"></script>
@@ -16,13 +17,13 @@
 
     <div id="enterUsername1">
         <p>Enter a username to start: <br /></p>
-    
+
     </div>
 
 
     <div id="enterUsername">
-        
-        <input id="username" type="text" value="Player1"/>
+
+        <input id="username" type="text" value="Player1" />
         <input id="submitUser" type="submit" value="Enter" />
     </div>
 
@@ -76,14 +77,20 @@
         <input type="submit" id="submit" onclick="tryit()">
     </div>
 
-@*    <div>
-        <input type="text" id="userInput" />
-        <input type="submit" id="sendButton" />
-    </div>*@
+
+    <div id="finalPage">
+
+        <input type="submit" id="viewScores" value="View Scores">
+    </div>
+
+    <div id="final1">
+        <p id="finalScores1"></p>
+    </div>
+
+    <div id="final2">
+        <p id="finalScores2"></p>
+    </div>
+
 
     <p id="print"></p>
 </body>
-@*
-         <input type="button" id="otherbutton" value="start game">
-        <input type="button" id="otherbuttonss" value="start game">
-        <input type="button" id="otherbuttons" value="start game">*@

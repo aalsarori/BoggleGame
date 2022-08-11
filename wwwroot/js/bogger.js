@@ -11,6 +11,11 @@ var letter = 0
 var id = 1;
 var clickedID = 0
 
+// arrays to store the words guessed by each player
+
+wordList1 = ['Hello', 'Abdul', 'Mike', 'Game']
+wordList2 = ['Hello2', 'Abdul2', 'Mike2', 'Game2']
+
 //arrays for each grid clickables
 var one = [2, 5, 6]
 var two = [1, 3, 5, 6, 7]
@@ -34,12 +39,13 @@ makeRows(4, 4);
 document.getElementById("startButton").addEventListener("click", startTimer);
 document.getElementById("submit").addEventListener("click", refreshGrid);
 document.getElementById("submitUser").addEventListener("click", showStart);
+document.getElementById("viewScores").addEventListener("click", showWordsGuessed);
 
 function showStart() {
     document.getElementById("startButton").style.display = "block";
     document.getElementById("enterUsername").style.display = "none";
     document.getElementById("enterUsername1").style.display = "none";
-        
+
 }
 
 
@@ -97,10 +103,13 @@ function makeRows(rows, cols) {
 
 
 function tryit() {
+    var p = document.getElementById("print")
+    p.innerHTML = "";
     var i = 0
     while (i < word.length) {
 
-        var p = document.getElementById("print")
+
+        p = document.getElementById("print")
         p.innerHTML = p.innerHTML + word[i];
         i++;
     }
@@ -125,6 +134,7 @@ function startTimer() {
         document.getElementById("secs").textContent = "00:" + Math.floor(secsLeft);
         if (secsLeft === 0) {
             hide();
+            showScores()
             clearInterval(timer)
             document.getElementById("secs").textContent = "00:00"
 
@@ -148,27 +158,11 @@ function refreshGrid() {
         cell.style.color = "black";
         cell.style.pointerEvents = "auto";
 
+
         word = []
         clickedList = []
     }
 }
-
-
-// show the grid
-function show() {
-
-
-    var style = document.createElement("style");
-    document.head.appendChild(style);
-
-    //Add rules to the style
-    document.styleSheets[document.styleSheets.length - 1].insertRule(
-        "div#container { \
-          display: grid; \
-       } ", 0);
-
-}
-
 
 function getClickID(clickID) {
 
@@ -330,9 +324,47 @@ function makeClickable(clickedID) {
 };
 
 
+// show the grid
+function show() {
+
+
+    var style = document.createElement("style");
+    document.head.appendChild(style);
+
+    //Add rules to the style
+    document.styleSheets[document.styleSheets.length - 1].insertRule(
+        "div#container { \
+          display: grid; \
+       } ", 0);
+
+}
+
+
 // hide the grid
 function hide() {
 
     document.getElementById("container").style.display = "none";
 
+}
+
+function showWordsGuessed() {
+
+    var p = document.getElementById('finalScores1')
+    var p2 = document.getElementById('finalScores2')
+    for (i = 0; i < wordList1.length; i++) {
+
+        if (i === 0) {
+            p.innerHTML = wordList1[i] + '<br>'
+            p2.innerHTML = wordList2[i] + '<br>'
+        }
+        else {
+            p.innerHTML = p.innerHTML + wordList1[i] + '<br>'
+            p2.innerHTML = p2.innerHTML + wordList2[i] + '<br>'
+        }
+    }
+}
+
+function showScores() {
+
+    document.getElementById("viewScores").style.display = "block";
 }
