@@ -494,3 +494,97 @@
 
 //    }
 //}
+
+
+//// Get the results passed in
+//public async Task SendResultScreen()
+//{
+//    // Open the connection
+//    string connectionString = "Server=titan.cs.weber.edu, 10433;Database=AmandaShow;User ID=AmandaShow;Password=+h1sIsthenewP@ssword!";
+//    connection = new SqlConnection(connectionString);
+//    connection.Open();
+
+//    //// Create the query for getting final scores
+//    //string getFinalScores = String.Format("");
+
+//    //// Run the query for getting final scores
+//    //SqlCommand db = new SqlCommand(getFinalScores, connection);
+//    //db.CommandType = CommandType.Text;
+
+//    //// Loop through and set them equal to variables
+//    //List<string> newScores = new List<string>();
+
+//    //using (SqlDataReader objReader = db.ExecuteReader())
+//    //{
+//    //    if (objReader.HasRows)
+//    //    {
+//    //        while (objReader.Read())
+//    //        {
+//    //            //I would also check for DB.Null here before reading the value.
+//    //            string item = objReader.GetString(objReader.GetOrdinal("usernameOne"));
+//    //            newScores.Add(item);
+
+//    //            item = objReader.GetString(objReader.GetOrdinal("usernameTwo")); // If this is wrong, may need to call names individually and then score individually
+//    //            newScores.Add(item);
+
+//    //            item = objReader.GetString(objReader.GetOrdinal("userOneScore")); // may need to query individually, may just make a function for this at this point
+//    //            newScores.Add(item);
+
+//    //            item = objReader.GetString(objReader.GetOrdinal("userTwoScore")); // may need to query individually, may just make a function for this at this point
+//    //            newScores.Add(item);
+//    //        }
+//    //    }
+//    //}
+
+//    //// Get the users names
+//    //string user1 = newScores[0];
+//    //string user2 = newScores[1];
+
+//    //// Create the query for getting the word lists
+//    //string getWordListsUser1 = String.Format("", user1);
+//    //string getWordListsUser2 = String.Format("", user2);
+
+//    // Run the query for getting the word lists
+
+//    // Loop through setting them equal to variables
+
+//    // Find the winner based on the score, and set it equal to a variable
+
+//    // Consider using timers between queries
+
+//    // Pass it in
+//    await Clients.All.SendAsync("SendFinalScores", "Fake1", "100", "Fake2", "101");
+//    List<string> test1 = new List<string>();
+//    List<string> test2 = new List<string>();
+
+//    test1.Add("Guess1");
+//    test2.Add("Guess2");
+//    test1.Add("Guess3");
+//    test2.Add("Guess4");
+
+//    // Send the relevant data
+//    await Clients.All.SendAsync("SendWordLists", test1, test2);
+
+
+//    // Compare user1 score to user2 score, send winner name
+//    await Clients.All.SendAsync("SendWinner", "Fake2");
+
+
+//    // Clear the game sessions list and the word list and the score list
+//    string clearGames = "DELETE FROM games";
+//    string clearGameSessions = "DELETE FROM game_session";
+//    string clearWords = "DELETE FROM guesses";
+
+//    // Run the queries
+//    SqlCommand db = new SqlCommand(clearGames, connection);
+//    db.ExecuteNonQuery();
+
+//    db = new SqlCommand(clearGameSessions, connection);
+//    db.ExecuteNonQuery();
+
+//    db = new SqlCommand(clearWords, connection);
+//    db.ExecuteNonQuery();
+
+//    // Close the connection
+//    connection.Close();
+//}
