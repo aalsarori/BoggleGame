@@ -146,7 +146,7 @@ window.onload = function () {
     connection.on("SendWinner", function (winner) {
         // Abduls code
 
-        document.getElementById("winner").innerHTML = winner
+        document.getElementById("winner").innerHTML = "The winner is " + winner
     });
 
     connection.on("GameBoard", function (arr) {
