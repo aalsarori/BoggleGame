@@ -115,7 +115,7 @@ window.onload = function () {
 
         //prototype for how to display the words guessed by both users
 
-/*        var p = document.getElementById('finalScores1')
+        var p = document.getElementById('finalScores1')
         var p2 = document.getElementById('finalScores2')
 
         for (i = 0; i < user1words.length; i++) {
@@ -139,7 +139,7 @@ window.onload = function () {
             else {
                 p2.innerHTML = p2.innerHTML + user2words[i] + '<br>'
             }
-        }*/
+        }
     });
 
     // Send Winner
