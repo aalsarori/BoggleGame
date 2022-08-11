@@ -210,7 +210,7 @@ namespace AbdulsGame.Hubs
             Int16 userones = 0;
             userones = (Int16)db.ExecuteScalar();
 
-            string usertwoscore = string.Format("SELECT userOneScore FROM games WHERE usernameOne = '{0}'", user1);
+            string usertwoscore = string.Format("SELECT userTwoScore FROM games WHERE usernameTwo = '{0}'", user2);
 
             // Execute command
             db = new SqlCommand(usertwoscore, connection);
@@ -233,17 +233,13 @@ namespace AbdulsGame.Hubs
             connection = new SqlConnection(connectionString);
             connection.Open();
 
-            // Get the scores from the users
-            // Pass in initial names ands scores by drawing from database and passing them in
-            string getinitialnamesandscores = "SELECT usernameOne, usernameTwo, userOneScore, userTwoScore FROM games WHERE gamecode = 1";
+            // Pull out each users name and score
+            string getScore = "SELECT usernameOne, usernameTwo, userOneScore, userTwoScore FROM games WHERE gamecode = 1";
+            SqlCommand db = new SqlCommand(getScore, connection);
 
-            // Create a list to store values to
+            // Assign them
             List<string> newScores = new List<string>();
-
-            // Run the query
-            SqlCommand db = new SqlCommand(getinitialnamesandscores, connection);
             db.CommandType = CommandType.Text;
-
             using (SqlDataReader objReader = db.ExecuteReader())
             {
                 if (objReader.HasRows)
@@ -256,21 +252,32 @@ namespace AbdulsGame.Hubs
 
                         item = objReader.GetString(objReader.GetOrdinal("usernameTwo"));
                         newScores.Add(item);
-
-                        item = objReader.GetString(objReader.GetInt16("userOneScore"));
-                        newScores.Add(item);
-
-                        item = objReader.GetString(objReader.GetInt16("userTwoScore"));
-                        newScores.Add(item);
                     }
                 }
             }
 
-            // Set them equal to the variables
+            // set them to variables
             string user1 = newScores[0];
             string user2 = newScores[1];
-            string score1 = newScores[2];
-            string score2 = newScores[3];
+
+            string useronescore = string.Format("SELECT userOneScore FROM games WHERE usernameOne = '{0}'", user1);
+
+            // Execute command
+            db = new SqlCommand(useronescore, connection);
+
+            Int16 userones = 0;
+            userones = (Int16)db.ExecuteScalar();
+
+            string usertwoscore = string.Format("SELECT userTwoScore FROM games WHERE usernameTwo = '{0}'", user1);
+
+            // Execute command
+            db = new SqlCommand(usertwoscore, connection);
+
+            Int16 usertwos = 0;
+            usertwos = (Int16)db.ExecuteScalar();
+
+            string score1 = userones.ToString();
+            string score2 = usertwos.ToString();
 
             // Pass it in
             await Clients.All.SendAsync("SendFinalScores", user1, score1, user2, score2);
