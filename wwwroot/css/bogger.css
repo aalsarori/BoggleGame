@@ -149,3 +149,7 @@ input#viewScores {
 
     display: none;
 }
+
+p#print {
+    display: none;
+}
