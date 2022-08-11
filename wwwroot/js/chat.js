@@ -81,12 +81,10 @@ window.onload = function () {
 
     // Results Screen
     // Customize code to send to WaitToStart, pass in the variables
-    //document.getElementById("otherbuttons").addEventListener("click", function (event) {
-    //    connection.invoke("SendResultScreen").catch(function (err) {
-    //        return console.error(err.toString());
-    //    });
-    //    event.preventDefault();
-    //});
+    document.getElementById("endingthegame").addEventListener("click", function (event) {
+        connection.invoke("SendResultScreen");
+        event.preventDefault();
+    });
 
     // Send Final Scores Lists
     connection.on("SendFinalScores", function (user1, score1, user2, score2) {
