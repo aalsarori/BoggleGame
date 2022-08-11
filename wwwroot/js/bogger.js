@@ -1,4 +1,4 @@
-container = document.getElementById("container");
+/*container = document.getElementById("container");
 
 var arr = ['a', 'k', 'h', 'b', 'd', 'q', 'p', 'c', 'd', 'a', 'l', 'g', 'h', 'v', 'm', 't'];
 var cellsArr = [16]
@@ -13,8 +13,8 @@ var clickedID = 0
 
 // arrays to store the words guessed by each player
 
-wordList1 = ['Hello', 'Abdul', 'Mike', 'Game']
-wordList2 = ['Hello2', 'Abdul2', 'Mike2', 'Game2']
+*//*wordList1 = ['Hello', 'Abdul', 'Mike', 'Game']
+wordList2 = ['Hello2', 'Abdul2', 'Mike2', 'Game2']*//*
 
 //arrays for each grid clickables
 var one = [2, 5, 6]
@@ -36,15 +36,28 @@ var sixteen = [11, 12, 15]
 
 makeRows(4, 4);
 
-document.getElementById("startButton").addEventListener("click", startTimer);
+document.getElementById("startButton").addEventListener("click", checkPlayers);
 document.getElementById("submit").addEventListener("click", refreshGrid);
 document.getElementById("submitUser").addEventListener("click", showStart);
-document.getElementById("viewScores").addEventListener("click", showWordsGuessed);
 
 function showStart() {
     document.getElementById("startButton").style.display = "block";
     document.getElementById("enterUsername").style.display = "none";
     document.getElementById("enterUsername1").style.display = "none";
+
+}
+
+function checkPlayers() {
+
+    var grdoccument.getElementById("1");
+    if (grid1.innerHTML != 'a') {
+
+        startTimer();
+    }
+
+    else {
+        console.log("waiting for player 2");
+    }
 
 }
 
@@ -347,7 +360,7 @@ function hide() {
 
 }
 
-function showWordsGuessed() {
+*//*function showWordsGuessed() {
 
     var p = document.getElementById('finalScores1')
     var p2 = document.getElementById('finalScores2')
@@ -362,9 +375,10 @@ function showWordsGuessed() {
             p2.innerHTML = p2.innerHTML + wordList2[i] + '<br>'
         }
     }
-}
+}*//*
 
 function showScores() {
 
-    document.getElementById("viewScores").style.display = "block";
+    document.getElementById("endingthegame").style.display = "block";
 }
+*/
