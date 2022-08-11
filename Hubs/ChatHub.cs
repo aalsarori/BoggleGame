@@ -268,7 +268,7 @@ namespace AbdulsGame.Hubs
             Int16 userones = 0;
             userones = (Int16)db.ExecuteScalar();
 
-            string usertwoscore = string.Format("SELECT userTwoScore FROM games WHERE usernameTwo = '{0}'", user1);
+            string usertwoscore = string.Format("SELECT userTwoScore FROM games WHERE usernameTwo = '{0}'", user2);
 
             // Execute command
             db = new SqlCommand(usertwoscore, connection);
