@@ -82,9 +82,7 @@ window.onload = function () {
     // Results Screen
     // Customize code to send to WaitToStart, pass in the variables
     document.getElementById("endingthegame").addEventListener("click", function (event) {
-        connection.invoke("SendResultScreen").catch(function (err) {
-            return console.error(err.toString());
-        });
+        connection.invoke("SendResultScreen");
         event.preventDefault();
     });
 
