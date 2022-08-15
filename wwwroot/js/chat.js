@@ -1,35 +1,7 @@
 ﻿
 
-/*const { start } = require("@popperjs/core");*/
-
 var connection = new signalR.HubConnectionBuilder().withUrl("/chatHub").build();
 connection.start();
-//Disable the send button until connection is established.
-//document.getElementById("sendButton").disabled = true;
-//connection.on("ReceiveMessage", function (user, message) {
-//    var li = document.createElement("li");
-//    document.getElementById("messagesList").appendChild(li);
-//    // We can assign user-supplied strings to an element's textContent because it
-//    // is not interpreted as markup. If you're assigning in any other way, you 
-//    // should be aware of possible script injection concerns.
-//    li.textContent = `${user} says ${message}`;
-//});
-//connection.start().then(function () {
-//    document.getElementById("sendButton").disabled = false;
-//}).catch(function (err) {
-//    return console.error(err.toString());
-//});
-//document.getElementById("sendButton").addEventListener("click", function (event) {
-//    var user = document.getElementById("userInput").value;
-//    var message = document.getElementById("messageInput").value;
-//    connection.invoke("SendMessage", user, message).catch(function (err) {
-//        return console.error(err.toString());
-//    });
-//    event.preventDefault();
-//});
-/// SAMPLE CODE
-/// SAMPLE CODE
-/// SAMPLE CODE
 
 
 // Wait To Start
@@ -192,10 +164,7 @@ var letter = 0
 var id = 1;
 var clickedID = 0
 
-// arrays to store the words guessed by each player
 
-/*wordList1 = ['Hello', 'Abdul', 'Mike', 'Game']
-wordList2 = ['Hello2', 'Abdul2', 'Mike2', 'Game2']*/
 
 //arrays for each grid clickables
 var one = [2, 5, 6]
@@ -217,7 +186,7 @@ var sixteen = [11, 12, 15]
 
 makeRows(4, 4);
 
-/*document.getElementById("startButton").addEventListener("click", checkPlayers);*/
+
 document.getElementById("submit").addEventListener("click", refreshGrid);
 document.getElementById("submitUser").addEventListener("click", showStart);
 
@@ -238,20 +207,7 @@ function showStart() {
 
 }
 
-/*function checkPlayers() {
 
-    var grid1 = document.getElementById("1");
-    if (grid1.innerHTML != 'a') {
-
-        startTimer();
-    }
-
-    else {
-        console.log("waiting for player 2");
-    }
-
-}
-*/
 
 function makeRows(rows, cols) {
     container.style.setProperty('--grid-rows', rows);
@@ -551,22 +507,6 @@ function hide() {
 
 }
 
-/*function showWordsGuessed() {
-
-    var p = document.getElementById('finalScores1')
-    var p2 = document.getElementById('finalScores2')
-    for (i = 0; i < wordList1.length; i++) {
-
-        if (i === 0) {
-            p.innerHTML = wordList1[i] + '<br>'
-            p2.innerHTML = wordList2[i] + '<br>'
-        }
-        else {
-            p.innerHTML = p.innerHTML + wordList1[i] + '<br>'
-            p2.innerHTML = p2.innerHTML + wordList2[i] + '<br>'
-        }
-    }
-}*/
 
 function showScores() {
 
