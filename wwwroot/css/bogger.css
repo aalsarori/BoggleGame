@@ -17,30 +17,11 @@
     grid-template-columns: repeat(var(--grid-cols), 0.01fr);
 }
 
+html, body {
+    height: 100vh;
+    height: calc(var(--vh, 1vh) * 100);
+}
 
-
-/* .grid-item1 {
-padding: 1em;
-border: 1px solid #ddd;
-text-align: center;
-
-} */
-
-/* [id^="1"] {
-padding: 1em;
-border: 1px solid #ddd;
-text-align: center;
-} */
-/*
-[id^="scores"] {
-  display: inline-block;
-  padding-left: 2em;
-  
-}*/
-
-/*[id^="score"] {
-  display: none;
-}*/
 
 div#scores1 {
     display: inline-block;
@@ -54,18 +35,7 @@ div#scores2 {
     width: 20%;
 }
 
-/*p#user1 {
-  display: inline-block;
-  float: left;
-  width: 30%;
-}
 
-p#user2 {
-  display: inline-block;
-  float: right;
-  width: 30%;
-}
-*/
 #container div {
     padding: 1em;
     border: 1px solid #ddd;
@@ -96,6 +66,14 @@ p {
     width: 5%;
     float: left;
     padding: 0px;
+}
+
+div#scores2 > p {
+    padding: 1em;
+}
+
+div#scores1 > p {
+    padding: 1em;
 }
 
 #button {

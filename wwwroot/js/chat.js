@@ -141,7 +141,16 @@ window.onload = function () {
     connection.on("SendWinner", function (winner) {
         // Abduls code
 
-        document.getElementById("winner").innerHTML = "The winner is " + winner
+        if (winner == "TIE") {
+
+            document.getElementById("winner").innerHTML = "It's a Tie";
+        }
+
+        else {
+
+            document.getElementById("winner").innerHTML = "The winner is " + winner
+        }
+
     });
 
     connection.on("GameBoard", function (arr) {
@@ -159,11 +168,10 @@ window.onload = function () {
         if (grid1.innerHTML != 'a') {
 
             startTimer();
+            var player2 = document.getElementById("winner");
+            player2.innerHTML = "Winner will be displayed here!";
         }
 
-        else {
-            document.getElementById("winner").innerHTML = "Waiting for Player 2";
-        }
 
     });
 
@@ -214,13 +222,23 @@ document.getElementById("submit").addEventListener("click", refreshGrid);
 document.getElementById("submitUser").addEventListener("click", showStart);
 
 function showStart() {
-    //document.getElementById("startButton").style.display = "block";
+    var player2 = document.getElementById("winner");
+    var grid1 = document.getElementById("1");
+
+    if (grid1.innerHTML == 'a') {
+
+        console.log("waiting for another player 2");
+
+        player2.innerHTML = "Waiting for Player 2";
+        console.log("waiting for player 2");
+    }
+
     document.getElementById("enterUsername").style.display = "none";
     document.getElementById("enterUsername1").style.display = "none";
 
 }
 
-function checkPlayers() {
+/*function checkPlayers() {
 
     var grid1 = document.getElementById("1");
     if (grid1.innerHTML != 'a') {
@@ -233,7 +251,7 @@ function checkPlayers() {
     }
 
 }
-
+*/
 
 function makeRows(rows, cols) {
     container.style.setProperty('--grid-rows', rows);
