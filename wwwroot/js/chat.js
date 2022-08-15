@@ -108,13 +108,7 @@ window.onload = function () {
     connection.on("SendWordLists", function (user1words, user2words) {
 
         // Abduls code
-        //YOOOOOOOOOOOOOOO
-        console.log(user1words);
-        console.log(user2words); // both lines are just for testing
-        console.log("I exist!!!");
-        //Dennissss
-
-        //prototype for how to display the words guessed by both users
+        //Display the words guessed by both users
 
         var p = document.getElementById('finalScores1')
         var p2 = document.getElementById('finalScores2')
@@ -168,7 +162,7 @@ window.onload = function () {
         }
 
         else {
-            console.log("waiting for player 2");
+            document.getElementById("winner").innerHTML = "Waiting for Player 2";
         }
 
     });
