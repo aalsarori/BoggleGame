@@ -10,10 +10,10 @@ Player with more guessed words wins the game.
 
 # Tools Used
 
-.NET: Server side functionality used .NET
-SignalR: We ran our asynchronous tasks through SignalR, which mostly uses websockets
-Database: Data was stored in a MYSQL database.
-Front End: Front end used HTML, CSS, and JavaScript (JS).
+.NET: Server side functionality used .NET <br/>
+SignalR: We ran our asynchronous tasks through SignalR, which mostly uses websockets <br/>
+Database: Data was stored in a MYSQL database. <br/>
+Front End: Front end used HTML, CSS, and JavaScript (JS). <br/>
 
 # My contributions
 
@@ -36,7 +36,7 @@ Words should be compared server side against an already existing list of valid d
 
 When a user enters a correct word, a corresponding indication to the other player that the opponent found a word. 
 
-No word can be used twice (even if it shows up twice in different areas on the grid)
+No word can be used twice (even if it shows up twice in different areas on the grid) 
 
 Words must be at least 3 letters long
 
